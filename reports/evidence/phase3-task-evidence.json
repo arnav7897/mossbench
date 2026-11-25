@@ -1,0 +1,29 @@
+{
+  "cost_note": "TaskUsage cost is model usage only; browser/total billing may differ. These are single observations, not reliability estimates.",
+  "edge_cases": {
+    "30_second_runtime": "rejected before task creation",
+    "cancel_poll_race_terminal_status": "cancelled",
+    "model_cost_limit_usd": 0.01,
+    "observed_runtime_range_seconds": "60-7200",
+    "reported_model_usage_cost_usd": 0.006023,
+    "same_idempotency_key_same_task": true
+  },
+  "lifecycle": {
+    "active_cancel_terminal_status": "cancelled",
+    "artifact_bytes": 79,
+    "artifact_sha256": "28847ccf09b63f34ddb4fd1d7236bc9e9d30eb48f5d5b07bcd6cd579e0f8b190",
+    "completed_cancel_status": "completed",
+    "fresh_client_resume_same_task": true,
+    "invalid_id": "not_found_error",
+    "premature_artifact_access": "task_not_finished"
+  },
+  "smoke": {
+    "completed": 5,
+    "model_cost_reported_count": 5,
+    "model_cost_usd_reported": 0.030056,
+    "note": "Model cost is the task usage field only; browser/total billing may differ. Polling times are observations, not exact transitions.",
+    "scenario_count": 5,
+    "schema_applicable": 4,
+    "schema_passes": 4
+  }
+}

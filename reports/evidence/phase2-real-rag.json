@@ -1,0 +1,78 @@
+{
+  "all_requests_successful": true,
+  "dollar_cost_per_call": null,
+  "index": "mossbench-synth-100",
+  "manual_source_grounded_review": {
+    "correct": {
+      "hosted_rag": 32,
+      "llm_only": 31,
+      "manual_rag": 30
+    },
+    "criteria": "Main fact accurate; material contradictions count incorrect; abstention on supported questions counts incorrect.",
+    "hosted_retrieval_provenance_available": false,
+    "incorrect_question_ids": {
+      "hosted_rag": [
+        "rd-002",
+        "rd-004",
+        "rd-013",
+        "rd-017",
+        "rd-018",
+        "rd-019",
+        "rd-023",
+        "rd-030"
+      ],
+      "llm_only": [
+        "rd-006",
+        "rd-011",
+        "rd-013",
+        "rd-014",
+        "rd-016",
+        "rd-027",
+        "rd-028",
+        "rd-036",
+        "rd-040"
+      ],
+      "manual_rag": [
+        "rd-002",
+        "rd-004",
+        "rd-006",
+        "rd-013",
+        "rd-016",
+        "rd-017",
+        "rd-018",
+        "rd-019",
+        "rd-023",
+        "rd-030"
+      ]
+    }
+  },
+  "model": "moss/fastlane-1",
+  "modes": {
+    "hosted_rag": {
+      "input_tokens": 36752,
+      "latency_ms_p50": 622.351,
+      "latency_ms_p95": 832.153,
+      "n": 40,
+      "output_tokens": 2134
+    },
+    "llm_only": {
+      "input_tokens": 6073,
+      "latency_ms_p50": 551.644,
+      "latency_ms_p95": 915.347,
+      "n": 40,
+      "output_tokens": 2272
+    },
+    "manual_rag": {
+      "input_tokens": 44365,
+      "latency_ms_p50": 590.886,
+      "latency_ms_p95": 756.876,
+      "n": 40,
+      "output_tokens": 2003
+    }
+  },
+  "nonempty_answers": true,
+  "note": "No dollar estimate inferred from token usage.",
+  "output_cap_hits": 0,
+  "query_count": 40,
+  "query_sha256": "e80af5b85a5013383eb3a6355a9e377d43a33e79a9dc825748438c6eb33aa09b"
+}

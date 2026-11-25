@@ -1,0 +1,27 @@
+{
+  "delete_visibility": {
+    "absent_from_search": true,
+    "no_document_remains": true,
+    "passed": true
+  },
+  "duplicate_id_upsert": {
+    "one_document_after_upsert": true,
+    "passed": true,
+    "revised_text_visible": true
+  },
+  "empty_query": "returned",
+  "empty_results": {
+    "passed": true,
+    "result_count": 0
+  },
+  "fresh_client_reload": {
+    "passed": true,
+    "top_five_stable": true
+  },
+  "metadata_filter": {
+    "all_results_matched_filter": true,
+    "passed": true,
+    "result_count": 10
+  },
+  "multi_index_isolation": "not tested; no dedicated index slot"
+}

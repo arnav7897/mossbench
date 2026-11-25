@@ -1,0 +1,48 @@
+{
+  "index": "mossbench-synth-100",
+  "note": "Four retrieval-only observations (one supported control and three manually labeled unsupported questions). Returned scores are not calibrated confidence or proof that the passage answers the query; no abstention rate is inferred.",
+  "supported_control": {
+    "correct_parent_ranked_first": true,
+    "count": 1,
+    "top_parent": "fastapi-body",
+    "top_score": 1.0
+  },
+  "unsupported_questions": [
+    {
+      "count": 5,
+      "top_five_parents": [
+        "fastapi-response-model",
+        "fastapi-response-model",
+        "fastapi-response-model",
+        "fastapi-response-model",
+        "fastapi-dependencies"
+      ],
+      "top_parent": "fastapi-response-model",
+      "top_score": 0.40273743867874146
+    },
+    {
+      "count": 5,
+      "top_five_parents": [
+        "postgres-vacuuming",
+        "postgres-vacuuming",
+        "postgres-vacuuming",
+        "postgres-vacuuming",
+        "postgres-transactions"
+      ],
+      "top_parent": "postgres-vacuuming",
+      "top_score": 0.18551012873649597
+    },
+    {
+      "count": 5,
+      "top_five_parents": [
+        "celery-workers",
+        "redis-xreadgroup",
+        "redis-xreadgroup",
+        "redis-xreadgroup",
+        "redis-xreadgroup"
+      ],
+      "top_parent": "celery-workers",
+      "top_score": 0.7340770959854126
+    }
+  ]
+}

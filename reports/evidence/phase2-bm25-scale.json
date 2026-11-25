@@ -1,0 +1,121 @@
+{
+  "baseline": "local standard-library BM25",
+  "corpora": {
+    "100": {
+      "corpus_sha256": "08626c77ef97de45fa6442c2ad45bfd2d7f14988e9370c8773e252835bbdc7ce",
+      "documents": 100,
+      "evaluation_exact": {
+        "n": 13,
+        "recall_at_1": 0.9230769230769231,
+        "recall_at_10": 1.0,
+        "recall_at_5": 1.0,
+        "reciprocal_rank": 0.9487179487179487
+      },
+      "evaluation_paraphrase": {
+        "n": 27,
+        "recall_at_1": 0.5925925925925926,
+        "recall_at_10": 1.0,
+        "recall_at_5": 0.8148148148148148,
+        "reciprocal_rank": 0.711713697824809
+      },
+      "held_out_exact": {
+        "n": 3,
+        "recall_at_1": 0.6666666666666666,
+        "recall_at_10": 1.0,
+        "recall_at_5": 1.0,
+        "reciprocal_rank": 0.75
+      },
+      "held_out_paraphrase": {
+        "n": 7,
+        "recall_at_1": 0.8571428571428571,
+        "recall_at_10": 1.0,
+        "recall_at_5": 1.0,
+        "reciprocal_rank": 0.9285714285714286
+      },
+      "latency_ms": {
+        "p50": 0.33,
+        "p95": 0.667
+      },
+      "measurements": 50,
+      "query_sha256": "5dbed76da054e5ae5ecaab39b5c6f474885f7d6cff0f279eb66e727d1880de37"
+    },
+    "1000": {
+      "corpus_sha256": "1d8f16508c56180d566c08b889c844967080a77d2b89d8315c7d6e4684aa1e82",
+      "documents": 1000,
+      "evaluation_exact": {
+        "n": 13,
+        "recall_at_1": 0.9230769230769231,
+        "recall_at_10": 1.0,
+        "recall_at_5": 1.0,
+        "reciprocal_rank": 0.9487179487179487
+      },
+      "evaluation_paraphrase": {
+        "n": 27,
+        "recall_at_1": 0.5925925925925926,
+        "recall_at_10": 1.0,
+        "recall_at_5": 0.8148148148148148,
+        "reciprocal_rank": 0.711713697824809
+      },
+      "held_out_exact": {
+        "n": 3,
+        "recall_at_1": 0.6666666666666666,
+        "recall_at_10": 1.0,
+        "recall_at_5": 1.0,
+        "reciprocal_rank": 0.75
+      },
+      "held_out_paraphrase": {
+        "n": 7,
+        "recall_at_1": 0.8571428571428571,
+        "recall_at_10": 1.0,
+        "recall_at_5": 1.0,
+        "reciprocal_rank": 0.9285714285714286
+      },
+      "latency_ms": {
+        "p50": 3.178,
+        "p95": 4.506
+      },
+      "measurements": 50,
+      "query_sha256": "5dbed76da054e5ae5ecaab39b5c6f474885f7d6cff0f279eb66e727d1880de37"
+    },
+    "10000": {
+      "corpus_sha256": "d3f13a67a485906c682e70f72ba9e4cfd6242f851aa21acd2c608c795950c5ec",
+      "documents": 10000,
+      "evaluation_exact": {
+        "n": 13,
+        "recall_at_1": 0.9230769230769231,
+        "recall_at_10": 1.0,
+        "recall_at_5": 1.0,
+        "reciprocal_rank": 0.9487179487179487
+      },
+      "evaluation_paraphrase": {
+        "n": 27,
+        "recall_at_1": 0.5925925925925926,
+        "recall_at_10": 1.0,
+        "recall_at_5": 0.8148148148148148,
+        "reciprocal_rank": 0.711713697824809
+      },
+      "held_out_exact": {
+        "n": 3,
+        "recall_at_1": 0.6666666666666666,
+        "recall_at_10": 1.0,
+        "recall_at_5": 1.0,
+        "reciprocal_rank": 0.75
+      },
+      "held_out_paraphrase": {
+        "n": 7,
+        "recall_at_1": 0.8571428571428571,
+        "recall_at_10": 1.0,
+        "recall_at_5": 1.0,
+        "reciprocal_rank": 0.9285714285714286
+      },
+      "latency_ms": {
+        "p50": 38.81,
+        "p95": 49.547
+      },
+      "measurements": 50,
+      "query_sha256": "5dbed76da054e5ae5ecaab39b5c6f474885f7d6cff0f279eb66e727d1880de37"
+    }
+  },
+  "note": "Offline only; timings are local BM25 end-to-end query measurements on this machine, not comparable to Moss cloud latency. The synthetic corpora contain the same 10 fact documents plus unrelated decoys.",
+  "query_count": 50
+}

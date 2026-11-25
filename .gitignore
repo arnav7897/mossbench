@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.py[cod]
+.env
+.mossbench/
+results/
+datasets/real_docs/raw/
+datasets/real_docs/corpus.jsonl
+datasets/real_docs/ingest-receipt.json
+browser-profile/
+playwright/.auth/
+*.lock
+!requirements.lock
+*.egg-info/

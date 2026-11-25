@@ -1,0 +1,202 @@
+"""Build shareable aggregate evidence from local result files; omit raw answers and IDs."""
+
+import json
+import statistics
+from collections import defaultdict
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[1]
+OUT = Path(__file__).resolve().parent / "evidence"
+
+
+def read_jsonl(path):
+    return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+
+
+def percentile(values, percent):
+    values = sorted(values)
+    return values[max(0, (len(values) * percent + 99) // 100 - 1)] if values else None
+
+
+def retrieval_metrics(rows):
+    return {
+        "n": len(rows),
+        **{
+            name: round(statistics.mean(row[key] for row in rows), 6)
+            for name, key in (("recall_at_1", "recall_at_1"), ("recall_at_5", "recall_at_5"),
+                              ("recall_at_10", "recall_at_10"), ("mrr", "reciprocal_rank"))
+        },
+    }
+
+
+def export_retrieval():
+    rows = read_jsonl(ROOT / "results/phase2-real-modes/retrieval.jsonl")
+    bm25 = read_jsonl(ROOT / "results/phase2-real-bm25/keyword.jsonl")
+    summary = json.loads((ROOT / "results/phase2-real-modes/retrieval-summary.json").read_text())
+    manifest = json.loads((ROOT / "datasets/real_docs/sources.json").read_text())
+    modes = defaultdict(list)
+    for row in rows:
+        modes[row["mode"]].append(row)
+    result = {
+        "index": summary["index"], "query_count": summary["query_count"],
+        "query_sha256": summary["query_sha256"], "source_pages": manifest["parent_page_count"],
+        "chunks": manifest["document_count"], "corpus_sha256": manifest["corpus_sha256"],
+        "chunk_size_chars": manifest["chunk_size_chars"],
+        "chunk_overlap_chars": manifest["chunk_overlap_chars"],
+        "warmups_per_query_per_mode": summary["warmups_per_query"],
+        "repeats_per_query_per_mode": summary["repeats"], "sequential": True, "modes": {},
+    }
+    for name, group in sorted(modes.items()):
+        evaluation = [row for row in group if row["split"] == "evaluation"]
+        held_out = [row for row in group if row["split"] == "held_out"]
+        result["modes"][name] = {
+            "alpha": group[0]["alpha"], "n": len(group),
+            "latency_ms": {f"p{p}": percentile([row["latency_ms"] for row in group], p) for p in (50, 95, 99)},
+            "evaluation": retrieval_metrics(evaluation),
+            "evaluation_by_category": {
+                category: retrieval_metrics([row for row in evaluation if row["category"] == category])
+                for category in ("exact", "paraphrase")
+            },
+            "held_out": retrieval_metrics(held_out),
+            "held_out_by_category": {
+                category: retrieval_metrics([row for row in held_out if row["category"] == category])
+                for category in ("exact", "paraphrase")
+            },
+        }
+    result["overall_all_modes"] = {
+        "measurements": summary["n"], "latency_ms": summary["latency_ms"],
+        "successful_queries_per_second": round(summary["successful_qps"], 3),
+    }
+    latencies = [row["latency_ms"] for row in bm25]
+    result["local_bm25"] = {
+        "n": len(bm25), "latency_ms": {"p50": statistics.median(latencies), "p95": percentile(latencies, 95)},
+        "evaluation": retrieval_metrics([row for row in bm25 if row["split"] == "evaluation"]),
+        "evaluation_by_category": {
+            category: retrieval_metrics([row for row in bm25 if row["split"] == "evaluation" and row["category"] == category])
+            for category in ("exact", "paraphrase")
+        },
+        "held_out": retrieval_metrics([row for row in bm25 if row["split"] == "held_out"]),
+    }
+    (OUT / "phase2-real-retrieval.json").write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
+
+
+def export_rag():
+    rows = read_jsonl(ROOT / "results/phase2-real-rag/rag.jsonl")
+    summary = json.loads((ROOT / "results/phase2-real-rag/rag-summary.json").read_text())
+    misses = {
+        "llm_only": ["rd-006", "rd-011", "rd-013", "rd-014", "rd-016", "rd-027", "rd-028", "rd-036", "rd-040"],
+        "manual_rag": ["rd-002", "rd-004", "rd-006", "rd-013", "rd-016", "rd-017", "rd-018", "rd-019", "rd-023", "rd-030"],
+        "hosted_rag": ["rd-002", "rd-004", "rd-013", "rd-017", "rd-018", "rd-019", "rd-023", "rd-030"],
+    }
+    result = {
+        "model": summary["model"], "index": summary["index"], "query_count": summary["query_count"],
+        "query_sha256": summary["dataset_sha256"],
+        "all_requests_successful": all(row["status"] == "success" for row in rows),
+        "nonempty_answers": all(bool((row.get("answer") or "").strip()) for row in rows),
+        "output_cap_hits": sum(row.get("output_tokens") == row.get("max_output_tokens") for row in rows),
+        "manual_source_grounded_review": {
+            "correct": {mode: summary["query_count"] - len(ids) for mode, ids in misses.items()},
+            "incorrect_question_ids": misses,
+            "criteria": "Main fact accurate; material contradictions count incorrect; abstention on supported questions counts incorrect.",
+            "hosted_retrieval_provenance_available": False,
+        },
+        "modes": {mode["mode"]: {key: mode[key] for key in ("n", "latency_ms_p50", "latency_ms_p95", "input_tokens", "output_tokens")} for mode in summary["modes"]},
+        "dollar_cost_per_call": None,
+        "note": "No dollar estimate inferred from token usage.",
+    }
+    (OUT / "phase2-real-rag.json").write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
+
+
+def export_contracts():
+    checks = json.loads((ROOT / "results/phase2-real-retrieval-contracts.json").read_text())["checks"]
+    result = {
+        "metadata_filter": {"passed": checks["metadata_filter"]["passed"], "result_count": checks["metadata_filter"]["result_count"], "all_results_matched_filter": all(topic == "redis" for topic in checks["metadata_filter"]["topics"])},
+        "empty_query": checks["empty_query"]["outcome"],
+        "empty_results": {"passed": checks["empty_results"]["passed"], "result_count": checks["empty_results"]["result_count"]},
+        "fresh_client_reload": {"passed": checks["fresh_client_reload"]["passed"], "top_five_stable": checks["fresh_client_reload"]["before_ids"] == checks["fresh_client_reload"]["after_ids"]},
+        "duplicate_id_upsert": {"passed": checks["duplicate_id_upsert"]["passed"], "one_document_after_upsert": checks["duplicate_id_upsert"]["matching_documents"] == 1, "revised_text_visible": checks["duplicate_id_upsert"]["updated_text_visible"]},
+        "delete_visibility": {"passed": checks["delete_visibility"]["passed"], "no_document_remains": checks["delete_visibility"]["remaining_documents"] == 0, "absent_from_search": not checks["delete_visibility"]["probe_in_search"]},
+        "multi_index_isolation": "not tested; no dedicated index slot",
+    }
+    (OUT / "phase2-retrieval-contracts.json").write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
+
+
+def export_tasks():
+    smoke = json.loads((ROOT / "results/phase3-tasks/tasks-summary.json").read_text())
+    edge = read_jsonl(ROOT / "results/phase3-edgecases/edgecases.jsonl")
+    result = {
+        "smoke": smoke,
+        "lifecycle": {
+            "invalid_id": "not_found_error", "active_cancel_terminal_status": "cancelled",
+            "completed_cancel_status": "completed", "fresh_client_resume_same_task": True,
+            "artifact_bytes": 79, "artifact_sha256": "28847ccf09b63f34ddb4fd1d7236bc9e9d30eb48f5d5b07bcd6cd579e0f8b190",
+            "premature_artifact_access": "task_not_finished",
+        },
+        "edge_cases": {
+            "30_second_runtime": "rejected before task creation", "observed_runtime_range_seconds": "60-7200",
+            "model_cost_limit_usd": 0.01, "reported_model_usage_cost_usd": 0.006023,
+            "same_idempotency_key_same_task": any(row.get("test_id") == "T13" and row.get("same_task_id") for row in edge),
+            "cancel_poll_race_terminal_status": next((row["terminal_status"] for row in edge if row.get("test_id") == "T10-race"), None),
+        },
+        "cost_note": "TaskUsage cost is model usage only; browser/total billing may differ. These are single observations, not reliability estimates.",
+    }
+    (OUT / "phase3-task-evidence.json").write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
+
+
+def export_bm25_scale():
+    result = {"baseline": "local standard-library BM25", "query_count": 50, "corpora": {}}
+    for size in (100, 1000, 10000):
+        summary = json.loads((ROOT / f"results/phase2-bm25-scale-{size}/keyword-summary.json").read_text())
+        result["corpora"][str(size)] = {
+            "documents": size,
+            "measurements": summary["n"],
+            "corpus_sha256": summary["corpus_sha256"],
+            "query_sha256": summary["queries_sha256"],
+            "latency_ms": {"p50": summary["latency_ms_p50"], "p95": summary["latency_ms_p95"]},
+            "evaluation_exact": summary["groups"]["evaluation_exact"],
+            "evaluation_paraphrase": summary["groups"]["evaluation_paraphrase"],
+            "held_out_exact": summary["groups"]["held_out_exact"],
+            "held_out_paraphrase": summary["groups"]["held_out_paraphrase"],
+        }
+    result["note"] = "Offline only; timings are local BM25 end-to-end query measurements on this machine, not comparable to Moss cloud latency. The synthetic corpora contain the same 10 fact documents plus unrelated decoys."
+    (OUT / "phase2-bm25-scale.json").write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
+
+
+def export_hard_negatives():
+    raw = json.loads((ROOT / "results/phase2-hard-negatives/hard-negatives.json").read_text())
+    supported = next(case for case in raw["cases"] if case["supported_parent"])
+    unsupported = [case for case in raw["cases"] if not case["supported_parent"]]
+    result = {
+        "index": raw["index"],
+        "supported_control": {
+            "count": 1,
+            "correct_parent_ranked_first": bool(supported["results"] and supported["results"][0]["parent_id"] == supported["supported_parent"]),
+            "top_parent": supported["results"][0]["parent_id"] if supported["results"] else None,
+            "top_score": supported["results"][0]["score"] if supported["results"] else None,
+        },
+        "unsupported_questions": [{
+            "count": len(case["results"]),
+            "top_parent": case["results"][0]["parent_id"] if case["results"] else None,
+            "top_score": case["results"][0]["score"] if case["results"] else None,
+            "top_five_parents": [row["parent_id"] for row in case["results"]],
+        } for case in unsupported],
+        "note": "Four retrieval-only observations (one supported control and three manually labeled unsupported questions). Returned scores are not calibrated confidence or proof that the passage answers the query; no abstention rate is inferred.",
+    }
+    (OUT / "phase2-hard-negatives.json").write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
+
+
+def main():
+    OUT.mkdir(parents=True, exist_ok=True)
+    export_retrieval()
+    export_rag()
+    export_contracts()
+    export_tasks()
+    export_bm25_scale()
+    export_hard_negatives()
+    for path in sorted(OUT.glob("*.json")):
+        print(path)
+
+
+if __name__ == "__main__":
+    main()
