@@ -87,6 +87,10 @@ Two temporary, explicitly fictional fixture passages claimed different Celery re
 
 One retrieval-free response emitted the expected lifecycle through `response.completed`; concatenated text deltas matched `get_final_response().output_text`. The first text delta arrived at 539.457 ms and the full response completed at 542.133 ms. This is a single observation, not a latency estimate. Early disconnect, stream errors, and stream-vs-nonstream equivalence remain untested. Reproduce with `.venv/bin/python datasets/check_streaming.py`; sanitized events and timings are in [`reports/evidence/phase2-streaming.json`](evidence/phase2-streaming.json), while the text is retained locally under ignored `results/phase2-streaming/`.
 
+## Inference concurrency smoke sweep
+
+Ten retrieval-free, uncached calls were issued at each concurrency level (1, 2, 5), with SDK retries disabled and 8 output tokens allowed per call. Level 1 completed 10/10 (p50 251.621 ms; successful throughput 2.897/s), level 2 completed 8/10 (p50 257.981 ms; 6.354/s), and level 5 completed 1/10 (p50 265.206 ms; 1.331/s). The 11 failures were all HTTP 429 `rate_limit_exceeded`. Levels ran back-to-back in one sweep; these observations do not establish a stable quota or predict behavior after a cooldown. Reproduce with `.venv/bin/python datasets/check_inference_concurrency.py`; full per-call records are local under ignored `results/phase2-inference-concurrency/`, and sanitized summaries are in [`reports/evidence/phase2-inference-concurrency.json`](evidence/phase2-inference-concurrency.json).
+
 ## Tasks API evidence
 
 The existing Phase 3 evidence covered five bounded public-doc tasks, cancellation, resuming the same task ID through a fresh client, artifact availability/checksum, runtime and model-cost limits, duplicate submission using one idempotency key, and a cancel/poll race. All five initial smoke tasks reached terminal `completed`; the unreachable URL produced an honest failure rather than fabricated facts. These observations are single runs, not a reliability estimate. Model usage cost is recorded separately from total browser/task billing.

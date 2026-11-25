@@ -1,0 +1,52 @@
+{
+  "cache": false,
+  "calls_per_level": 10,
+  "levels": [
+    {
+      "attempted": 10,
+      "concurrency": 1,
+      "error_counts": {},
+      "failures": 0,
+      "input_tokens": 1300,
+      "latency_ms_p50": 251.6205,
+      "latency_ms_p95": 751.598,
+      "output_tokens": 20,
+      "successes": 10,
+      "successful_requests_per_second": 2.897,
+      "wall_seconds": 3.451832
+    },
+    {
+      "attempted": 10,
+      "concurrency": 2,
+      "error_counts": {
+        "429:rate_limit_exceeded": 2
+      },
+      "failures": 2,
+      "input_tokens": 1040,
+      "latency_ms_p50": 257.9805,
+      "latency_ms_p95": 518.533,
+      "output_tokens": 16,
+      "successes": 8,
+      "successful_requests_per_second": 6.354,
+      "wall_seconds": 1.258959
+    },
+    {
+      "attempted": 10,
+      "concurrency": 5,
+      "error_counts": {
+        "429:rate_limit_exceeded": 9
+      },
+      "failures": 9,
+      "input_tokens": 130,
+      "latency_ms_p50": 265.206,
+      "latency_ms_p95": 265.206,
+      "output_tokens": 2,
+      "successes": 1,
+      "successful_requests_per_second": 1.331,
+      "wall_seconds": 0.751447
+    }
+  ],
+  "model": "moss/fastlane-1",
+  "note": "Single back-to-back sweep. Concurrency 5 produced rate-limit responses; throughput is successful calls / level wall time. Not a stable documented quota or a saturation test.",
+  "sdk_retries": 0
+}

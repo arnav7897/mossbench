@@ -44,6 +44,9 @@ Set `MOSS_PROJECT_ID` and `MOSS_PROJECT_KEY` in `.env`. The SDK uses the project
 # One retrieval-free stream; verifies events, completion, and final text assembly
 .venv/bin/python datasets/check_streaming.py
 
+# 10 short inference calls at concurrency 1, 2, and 5; no cache or SDK retries
+.venv/bin/python datasets/check_inference_concurrency.py
+
 # Offline local BM25 scale sweep (no Moss API calls)
 for size in 100 1000 10000; do
   .venv/bin/mossbench benchmark-keyword \

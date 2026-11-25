@@ -214,6 +214,34 @@ def export_streaming():
     (OUT / "phase2-streaming.json").write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
 
 
+def export_concurrency():
+    raw = json.loads((ROOT / "results/phase2-inference-concurrency/concurrency.json").read_text())
+    rows = raw["results"]
+    result = {
+        "model": raw["model"], "calls_per_level": raw["calls_per_level"],
+        "cache": raw["cache"], "sdk_retries": raw["sdk_retries"],
+        "levels": [],
+        "note": "Single back-to-back sweep. Concurrency 5 produced rate-limit responses; throughput is successful calls / level wall time. Not a stable documented quota or a saturation test.",
+    }
+    for summary in raw["summaries"]:
+        group = [row for row in rows if row["concurrency"] == summary["concurrency"]]
+        result["levels"].append({
+            key: summary[key] for key in (
+                "concurrency", "attempted", "successes", "failures", "wall_seconds",
+                "successful_requests_per_second", "latency_ms_p50", "latency_ms_p95",
+                "input_tokens", "output_tokens",
+            )
+        } | {"error_counts": {
+            f"{row.get('http_status')}:{row.get('error_code')}": sum(
+                1 for failed in group if failed.get("status") == "error"
+                and failed.get("http_status") == row.get("http_status")
+                and failed.get("error_code") == row.get("error_code")
+            )
+            for row in group if row.get("status") == "error"
+        }})
+    (OUT / "phase2-inference-concurrency.json").write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     export_retrieval()
@@ -224,6 +252,7 @@ def main():
     export_hard_negatives()
     export_contradictions()
     export_streaming()
+    export_concurrency()
     for path in sorted(OUT.glob("*.json")):
         print(path)
 
