@@ -285,6 +285,17 @@ def export_cache_usage():
     (OUT / "phase2-cache.json").write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
 
 
+def export_retrieval_rss():
+    raw = json.loads((ROOT / "results/phase2-retrieval-rss/rss.json").read_text())
+    result = {key: raw[key] for key in (
+        "index", "rss_before_client_kib", "rss_after_load_kib", "rss_after_query_kib",
+        "rss_after_close_kib", "rss_delta_after_load_kib", "rss_delta_after_close_kib",
+        "load_ms", "query_ms", "result_count",
+    )}
+    result["note"] = "Single Linux process observation with Moss/Python imports already resident; RSS includes SDK, loaded index, Python allocator, and other process state. Not isolated index memory or a repeated measurement."
+    (OUT / "phase2-retrieval-rss.json").write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     export_retrieval()
@@ -300,6 +311,7 @@ def main():
     export_sdk_vs_http()
     export_structured_output()
     export_cache_usage()
+    export_retrieval_rss()
     for path in sorted(OUT.glob("*.json")):
         print(path)
 

@@ -107,6 +107,10 @@ One retrieval-free call using the Responses `text.format` JSON Schema form compl
 
 Three sequential retrieval-free requests compared two identical prompts with a unique-prefix prompt. All outputs matched the requested short response. The first identical call reported 143 input/0 cached tokens at 425.459 ms; the second reported 0 input/0 cached tokens at 68.239 ms; the unique-prefix call reported 144 input/0 cached tokens at 138.578 ms. The response usage did not report cached tokens for any call, so the latency and zero-input observation are not treated as proof of a cache hit. Reproduce with `.venv/bin/python datasets/check_cache_usage.py`; sanitized usage is in [`reports/evidence/phase2-cache.json`](evidence/phase2-cache.json), and raw output is under ignored `results/phase2-cache/`.
 
+## Retrieval process RSS observation
+
+On Linux, the process RSS was 34,748 KiB before client construction, 192,328 KiB after loading the 618-chunk index, 193,228 KiB after one query, and 68,760 KiB after closing the client. Index load took 6,484.662 ms and the query 11.551 ms. These are single-process observations: RSS includes SDK/runtime state and allocator behavior, and the residual after close means this is not isolated index memory. Reproduce with `.venv/bin/python datasets/check_retrieval_rss.py`; sanitized values are in [`reports/evidence/phase2-retrieval-rss.json`](evidence/phase2-retrieval-rss.json).
+
 ## Tasks API evidence
 
 The existing Phase 3 evidence covered five bounded public-doc tasks, cancellation, resuming the same task ID through a fresh client, artifact availability/checksum, runtime and model-cost limits, duplicate submission using one idempotency key, and a cancel/poll race. All five initial smoke tasks reached terminal `completed`; the unreachable URL produced an honest failure rather than fabricated facts. These observations are single runs, not a reliability estimate. Model usage cost is recorded separately from total browser/task billing.
@@ -130,7 +134,7 @@ The exact commands, source manifest, and dataset integrity checks are in [`READM
 ## Not measured / known limits
 
 - Portal UI / Playwright was explicitly skipped.
-- No FAISS or Chroma comparison, Moss cloud scale sweep, or memory/RSS measurement. Concurrency was sampled only in one short 10-call-per-level run; no sustained load or post-cooldown repeat was run. The local BM25 scale sweep is synthetic and includes only unrelated decoys.
+- No FAISS or Chroma comparison or Moss cloud scale sweep. RSS was observed once in a single Linux process and is not an isolated index-memory measurement. Concurrency was sampled only in one short 10-call-per-level run; no sustained load or post-cooldown repeat was run. The local BM25 scale sweep is synthetic and includes only unrelated decoys.
 - The contradictory-document result is a single controlled smoke check. The four-query unsupported retrieval probe and two-question abstention probe are also too small to estimate general behavior.
 - No multi-index isolation test because the only new-project test index slot was unavailable; unrelated user indexes were not queried.
 - Streaming, tool calling, structured output, cache usage, and SDK/raw HTTP each received one small smoke comparison; stream disconnect/errors, tool error cases, complex schemas, cache-hit attribution, and broader transport equivalence remain untested. Long-context and inference error-contract suites were not run.

@@ -59,6 +59,9 @@ Set `MOSS_PROJECT_ID` and `MOSS_PROJECT_KEY` in `.env`. The SDK uses the project
 # Three sequential repeated/unique-prefix requests; records reported cached-token usage
 .venv/bin/python datasets/check_cache_usage.py
 
+# Observe process RSS around Moss index load/query/close on Linux
+.venv/bin/python datasets/check_retrieval_rss.py
+
 # Offline local BM25 scale sweep (no Moss API calls)
 for size in 100 1000 10000; do
   .venv/bin/mossbench benchmark-keyword \
@@ -120,6 +123,6 @@ The benchmark report is based on saved measurements. It does not estimate infere
 - No web UI is implemented; the CLI is the minimum product surface.
 - The local baseline is standard-library BM25; FAISS/Chroma was not installed or evaluated.
 - The real-doc set has 40 answerable questions (32 evaluation, 8 held out), and the held-out sample is small. A separate two-question unsupported-answer smoke probe is documented in the benchmark report; it is too small to estimate general abstention behavior.
-- One short 1/2/5 concurrency smoke sweep was run; sustained load and repeat-after-cooldown behavior remain untested. Streaming, function tools, structured output, cache usage, and raw HTTP versus SDK have separate smoke checks; memory/RSS and multi-index isolation remain untested.
+- One short 1/2/5 concurrency smoke sweep was run; sustained load and repeat-after-cooldown behavior remain untested. Streaming, function tools, structured output, cache usage, SDK/raw HTTP, and process RSS have separate smoke checks; isolated index memory and multi-index isolation remain untested.
 - Dollar cost for individual inference responses and hosted retrieval provenance were not returned in the saved SDK responses.
 - The Moss web-source crawler failed for a bounded FastAPI crawl; the corpus was fetched directly from the official public docs and uploaded as text chunks instead.

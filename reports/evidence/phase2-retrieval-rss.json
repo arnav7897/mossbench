@@ -1,0 +1,13 @@
+{
+  "index": "mossbench-synth-100",
+  "load_ms": 6484.662,
+  "note": "Single Linux process observation with Moss/Python imports already resident; RSS includes SDK, loaded index, Python allocator, and other process state. Not isolated index memory or a repeated measurement.",
+  "query_ms": 11.551,
+  "result_count": 5,
+  "rss_after_close_kib": 68760,
+  "rss_after_load_kib": 192328,
+  "rss_after_query_kib": 193228,
+  "rss_before_client_kib": 34748,
+  "rss_delta_after_close_kib": 34012,
+  "rss_delta_after_load_kib": 157580
+}
