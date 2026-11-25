@@ -79,6 +79,10 @@ These are local standard-library BM25 timings on this machine, not Moss cloud co
 
 A supported FastAPI body-validation control ranked its labeled page first. Three manually labeled unsupported questions still returned top-five candidates: the unsupported FastAPI administrator-password question returned a FastAPI response-model page (top score 0.403); an unrelated employee-ownership question returned PostgreSQL vacuuming material (0.186); and the unsupported Redis connection-timeout question returned Celery worker material (0.734). These are four read-only queries on one index. Scores are not calibrated confidence and candidate retrieval alone does not establish answer hallucination; this indicates why RAG should verify passage support and abstain. Raw results and the reproduction script are local; sanitized aggregates are in [`reports/evidence/phase2-hard-negatives.json`](evidence/phase2-hard-negatives.json).
 
+## Contradictory-document probe
+
+Two temporary, explicitly fictional fixture passages claimed different Celery retry limits (5 and 9). Both appeared in the retrieved context, and the model stated that the documents conflicted and cited both values. Cleanup of both fixture IDs was verified. This is one controlled run and does not estimate general contradiction handling. Reproduce with `.venv/bin/python datasets/check_contradictions.py`; sanitized evidence is in [`reports/evidence/phase2-contradictions.json`](evidence/phase2-contradictions.json), while raw response text stays in ignored `results/phase2-contradictions/`.
+
 ## Tasks API evidence
 
 The existing Phase 3 evidence covered five bounded public-doc tasks, cancellation, resuming the same task ID through a fresh client, artifact availability/checksum, runtime and model-cost limits, duplicate submission using one idempotency key, and a cancel/poll race. All five initial smoke tasks reached terminal `completed`; the unreachable URL produced an honest failure rather than fabricated facts. These observations are single runs, not a reliability estimate. Model usage cost is recorded separately from total browser/task billing.
@@ -103,7 +107,7 @@ The exact commands, source manifest, and dataset integrity checks are in [`READM
 
 - Portal UI / Playwright was explicitly skipped.
 - No FAISS or Chroma comparison, Moss cloud scale sweep, memory/RSS measurement, or concurrency sweep. The local BM25 scale sweep is synthetic and includes only unrelated decoys.
-- No contradictory-document group. The four-query unsupported retrieval probe and two-question abstention probe are smoke checks only and too small to estimate general behavior.
+- The contradictory-document result is a single controlled smoke check. The four-query unsupported retrieval probe and two-question abstention probe are also too small to estimate general behavior.
 - No multi-index isolation test because the only new-project test index slot was unavailable; unrelated user indexes were not queried.
 - No stream, tool, structured-output, long-context, error-contract, cache, or transport-equivalence suite.
 - Six offline unit tests cover metric percentiles/grouping and Tasks runtime/cost validation. Live and offline measurements are saved separately; no mocked result is included in the live benchmark evidence.

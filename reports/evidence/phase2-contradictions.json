@@ -1,0 +1,13 @@
+{
+  "answer_acknowledged_conflict": true,
+  "answer_latency_ms": 1791.934,
+  "cleanup_verified": true,
+  "index": "mossbench-synth-100",
+  "input_tokens": 1241,
+  "note": "One controlled temporary-fixture run. The answer cited both contradictory passages; this does not establish a general contradiction-detection rate.",
+  "output_tokens": 60,
+  "request_succeeded": true,
+  "retrieved_both_conflicting_passages": {
+    "passed": true
+  }
+}

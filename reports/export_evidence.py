@@ -186,6 +186,24 @@ def export_hard_negatives():
     (OUT / "phase2-hard-negatives.json").write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
 
 
+def export_contradictions():
+    raw = json.loads((ROOT / "results/phase2-contradictions/contradictions.json").read_text())
+    retrieved_ids = {row["id"] for row in raw.get("retrieved", [])}
+    answer = raw.get("answer", "").lower()
+    result = {
+        "index": raw["index"],
+        "retrieved_both_conflicting_passages": {"passed": {"mossbench-contradiction-a", "mossbench-contradiction-b"} <= retrieved_ids},
+        "request_succeeded": raw.get("status") == "success",
+        "cleanup_verified": raw.get("cleanup_verified") is True,
+        "answer_acknowledged_conflict": "conflicting" in answer and "5 attempts" in answer and "9 attempts" in answer,
+        "answer_latency_ms": raw.get("latency_ms"),
+        "input_tokens": raw.get("input_tokens"),
+        "output_tokens": raw.get("output_tokens"),
+        "note": "One controlled temporary-fixture run. The answer cited both contradictory passages; this does not establish a general contradiction-detection rate.",
+    }
+    (OUT / "phase2-contradictions.json").write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     export_retrieval()
@@ -194,6 +212,7 @@ def main():
     export_tasks()
     export_bm25_scale()
     export_hard_negatives()
+    export_contradictions()
     for path in sorted(OUT.glob("*.json")):
         print(path)
 

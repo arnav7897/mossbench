@@ -38,6 +38,9 @@ Set `MOSS_PROJECT_ID` and `MOSS_PROJECT_KEY` in `.env`. The SDK uses the project
 # Supported control plus unsupported retrieval probes (read-only)
 .venv/bin/python datasets/check_hard_negatives.py
 
+# Temporary contradictory passages plus one manual-RAG inference call; verifies cleanup
+.venv/bin/python datasets/check_contradictions.py
+
 # Offline local BM25 scale sweep (no Moss API calls)
 for size in 100 1000 10000; do
   .venv/bin/mossbench benchmark-keyword \
