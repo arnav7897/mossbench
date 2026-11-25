@@ -254,6 +254,18 @@ def export_function_tool():
     (OUT / "phase2-function-tool.json").write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
 
 
+def export_sdk_vs_http():
+    raw = json.loads((ROOT / "results/phase2-sdk-vs-http/comparison.json").read_text())
+    result = {
+        "model": raw["model"], "retrieve": raw["retrieve"], "cache": raw["cache"],
+        "sdk": {key: raw["sdk"].get(key) for key in ("status", "latency_ms", "input_tokens", "output_tokens")},
+        "raw_http": {key: raw["raw_http"].get(key) for key in ("http_status", "response_status", "latency_ms", "input_tokens", "output_tokens")},
+        "text_matches": raw["text_matches"], "usage_matches": raw["usage_matches"],
+        "note": "One sequential pair of calls. The latency difference is exploratory and not a stable client-overhead estimate.",
+    }
+    (OUT / "phase2-sdk-vs-http.json").write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     export_retrieval()
@@ -266,6 +278,7 @@ def main():
     export_streaming()
     export_concurrency()
     export_function_tool()
+    export_sdk_vs_http()
     for path in sorted(OUT.glob("*.json")):
         print(path)
 

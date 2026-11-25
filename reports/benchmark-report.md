@@ -95,6 +95,10 @@ Ten retrieval-free, uncached calls were issued at each concurrency level (1, 2, 
 
 One forced `order_lookup` function call used a deterministic local fixture (`MOSS-001` → shipped, ETA `2026-11-27`). The client executed the returned call and sent its result back; the follow-up response mentioned the returned shipped status. This verifies the basic function-call round trip only. Invalid arguments, unknown orders, tool errors, and parallel calls remain untested. Reproduce with `.venv/bin/python datasets/check_function_tool.py`; sanitized outcome and token counts are in [`reports/evidence/phase2-function-tool.json`](evidence/phase2-function-tool.json). The raw answer remains under ignored `results/phase2-function-tool/`.
 
+## SDK vs raw HTTP
+
+Equivalent retrieval-free, uncached requests were sent sequentially through the Moss SDK and directly to `/v1/responses`, with matching model, prompt, instructions, output cap, SSE mode, and Moss headers. Both completed with identical text and usage (127 input, 3 output tokens). Observed latency was 878.540 ms via SDK and 410.111 ms via raw HTTP in this pair; this is exploratory, not a stable client-overhead estimate. Reproduce with `.venv/bin/python datasets/check_sdk_vs_http.py`; sanitized values are in [`reports/evidence/phase2-sdk-vs-http.json`](evidence/phase2-sdk-vs-http.json), with full local output in ignored `results/phase2-sdk-vs-http/`.
+
 ## Tasks API evidence
 
 The existing Phase 3 evidence covered five bounded public-doc tasks, cancellation, resuming the same task ID through a fresh client, artifact availability/checksum, runtime and model-cost limits, duplicate submission using one idempotency key, and a cancel/poll race. All five initial smoke tasks reached terminal `completed`; the unreachable URL produced an honest failure rather than fabricated facts. These observations are single runs, not a reliability estimate. Model usage cost is recorded separately from total browser/task billing.

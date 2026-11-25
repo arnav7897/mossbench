@@ -1,0 +1,21 @@
+{
+  "cache": false,
+  "model": "moss/fastlane-1",
+  "note": "One sequential pair of calls. The latency difference is exploratory and not a stable client-overhead estimate.",
+  "raw_http": {
+    "http_status": 200,
+    "input_tokens": 127,
+    "latency_ms": 410.111,
+    "output_tokens": 3,
+    "response_status": "completed"
+  },
+  "retrieve": false,
+  "sdk": {
+    "input_tokens": 127,
+    "latency_ms": 878.54,
+    "output_tokens": 3,
+    "status": "completed"
+  },
+  "text_matches": true,
+  "usage_matches": true
+}

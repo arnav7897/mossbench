@@ -50,6 +50,9 @@ Set `MOSS_PROJECT_ID` and `MOSS_PROJECT_KEY` in `.env`. The SDK uses the project
 # One deterministic local function-tool call plus follow-up response
 .venv/bin/python datasets/check_function_tool.py
 
+# Equivalent uncached/retrieval-free Responses request through SDK and raw HTTP
+.venv/bin/python datasets/check_sdk_vs_http.py
+
 # Offline local BM25 scale sweep (no Moss API calls)
 for size in 100 1000 10000; do
   .venv/bin/mossbench benchmark-keyword \
