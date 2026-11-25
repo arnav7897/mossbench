@@ -80,5 +80,6 @@ These findings separate confirmed local integration bugs from measured answer-qu
 - A single 1/2/5 concurrency sweep (10 calls per level, no retries) produced 10/10, 8/10, and 1/10 successes. All 11 failures were HTTP 429 `rate_limit_exceeded`; because levels ran back-to-back, this is not a stable quota estimate.
 - One forced local `order_lookup` function call completed the tool round trip and the answer reflected the fixture result. Invalid tool arguments and tool failure paths remain untested.
 - One equivalent raw HTTP/SDK pair matched response text and token usage (127 input, 3 output); raw HTTP was faster in this one sequential pair. This is not a stable client-overhead estimate.
+- One Responses JSON Schema smoke call returned valid JSON with the required fields and types. Nested/complex schema behavior remains untested.
 - Multi-index isolation, RSS/memory, concurrency, streaming, function tools, structured output, raw HTTP versus SDK, cache comparison, and contradictory documents remain untested.
 - Context7 and CaveCrew tools were unavailable in this session; Moss behavior was checked against the installed SDK and official Moss documentation.

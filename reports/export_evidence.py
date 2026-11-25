@@ -266,6 +266,16 @@ def export_sdk_vs_http():
     (OUT / "phase2-sdk-vs-http.json").write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
 
 
+def export_structured_output():
+    raw = json.loads((ROOT / "results/phase2-structured-output/structured-output.json").read_text())
+    result = {key: raw.get(key) for key in (
+        "model", "status", "response_status", "input_tokens", "output_tokens", "valid_json", "schema_fields_valid",
+    )}
+    result["schema"] = "object with status enum and integer count; no additional properties"
+    result["note"] = "One request and one small schema; not a broad JSON Schema conformance test."
+    (OUT / "phase2-structured-output.json").write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     export_retrieval()
@@ -279,6 +289,7 @@ def main():
     export_concurrency()
     export_function_tool()
     export_sdk_vs_http()
+    export_structured_output()
     for path in sorted(OUT.glob("*.json")):
         print(path)
 

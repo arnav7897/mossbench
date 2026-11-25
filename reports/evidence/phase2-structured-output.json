@@ -1,0 +1,11 @@
+{
+  "input_tokens": 124,
+  "model": "moss/fastlane-1",
+  "note": "One request and one small schema; not a broad JSON Schema conformance test.",
+  "output_tokens": 13,
+  "response_status": "completed",
+  "schema": "object with status enum and integer count; no additional properties",
+  "schema_fields_valid": true,
+  "status": "success",
+  "valid_json": true
+}

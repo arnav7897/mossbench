@@ -99,6 +99,10 @@ One forced `order_lookup` function call used a deterministic local fixture (`MOS
 
 Equivalent retrieval-free, uncached requests were sent sequentially through the Moss SDK and directly to `/v1/responses`, with matching model, prompt, instructions, output cap, SSE mode, and Moss headers. Both completed with identical text and usage (127 input, 3 output tokens). Observed latency was 878.540 ms via SDK and 410.111 ms via raw HTTP in this pair; this is exploratory, not a stable client-overhead estimate. Reproduce with `.venv/bin/python datasets/check_sdk_vs_http.py`; sanitized values are in [`reports/evidence/phase2-sdk-vs-http.json`](evidence/phase2-sdk-vs-http.json), with full local output in ignored `results/phase2-sdk-vs-http/`.
 
+## Structured-output smoke check
+
+One retrieval-free call using the Responses `text.format` JSON Schema form completed. The output parsed as JSON and passed local checks for the required `status="ready"` enum, integer `count`, and exact object keys. This is one simple schema and does not establish broader schema-feature support. Reproduce with `.venv/bin/python datasets/check_structured_output.py`; the raw answer is local under ignored `results/phase2-structured-output/`, and the sanitized validation summary is in [`reports/evidence/phase2-structured-output.json`](evidence/phase2-structured-output.json).
+
 ## Tasks API evidence
 
 The existing Phase 3 evidence covered five bounded public-doc tasks, cancellation, resuming the same task ID through a fresh client, artifact availability/checksum, runtime and model-cost limits, duplicate submission using one idempotency key, and a cancel/poll race. All five initial smoke tasks reached terminal `completed`; the unreachable URL produced an honest failure rather than fabricated facts. These observations are single runs, not a reliability estimate. Model usage cost is recorded separately from total browser/task billing.
