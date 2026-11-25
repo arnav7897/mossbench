@@ -57,7 +57,7 @@ The 40 supported questions were run once per mode. All 120 requests succeeded, r
 
 The answer-by-answer review of all 120 outputs found these incorrect question IDs, recorded in the sanitized [`RAG evidence`](evidence/phase2-real-rag.json). Manual RAG abstained on several facts because its top three returned passages did not contain the answer section; hosted RAG had the same coverage gap on several questions. Both RAG modes incorrectly called Celery rate limits global by default (`rd-017`). This is a clear retrieval/generation quality issue on the measured question, not proof of a general provider defect.
 
-No dollar cost is derived from token counts. Moss response usage provided token counts but no per-call dollar charge. Hosted retrieval source passages/citations were not present in these saved responses, so provenance cannot be verified. Streaming, early disconnect, tool calling, structured-output validation, cache comparisons, raw HTTP versus SDK, and concurrency were not run in this suite.
+No dollar cost is derived from token counts. Moss response usage provided token counts but no per-call dollar charge. Hosted retrieval source passages/citations were not present in these saved responses, so provenance cannot be verified. Additional smoke checks for streaming, function tools, structured output, cache usage, raw HTTP versus SDK, and concurrency are reported separately below; they are not broad reliability or performance suites.
 
 ### Unsupported-answer abstention probe
 
@@ -130,9 +130,9 @@ The exact commands, source manifest, and dataset integrity checks are in [`READM
 ## Not measured / known limits
 
 - Portal UI / Playwright was explicitly skipped.
-- No FAISS or Chroma comparison, Moss cloud scale sweep, memory/RSS measurement, or concurrency sweep. The local BM25 scale sweep is synthetic and includes only unrelated decoys.
+- No FAISS or Chroma comparison, Moss cloud scale sweep, or memory/RSS measurement. Concurrency was sampled only in one short 10-call-per-level run; no sustained load or post-cooldown repeat was run. The local BM25 scale sweep is synthetic and includes only unrelated decoys.
 - The contradictory-document result is a single controlled smoke check. The four-query unsupported retrieval probe and two-question abstention probe are also too small to estimate general behavior.
 - No multi-index isolation test because the only new-project test index slot was unavailable; unrelated user indexes were not queried.
-- No stream, tool, structured-output, long-context, error-contract, cache, or transport-equivalence suite.
+- Streaming, tool calling, structured output, cache usage, and SDK/raw HTTP each received one small smoke comparison; stream disconnect/errors, tool error cases, complex schemas, cache-hit attribution, and broader transport equivalence remain untested. Long-context and inference error-contract suites were not run.
 - Six offline unit tests cover metric percentiles/grouping and Tasks runtime/cost validation. Live and offline measurements are saved separately; no mocked result is included in the live benchmark evidence.
 - The account dashboard and Portal workflows were not inspected in this phase. No current balance or total billing claim is made.
