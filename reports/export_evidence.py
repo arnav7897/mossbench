@@ -276,6 +276,15 @@ def export_structured_output():
     (OUT / "phase2-structured-output.json").write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
 
 
+def export_cache_usage():
+    raw = json.loads((ROOT / "results/phase2-cache/cache.json").read_text())
+    result = {
+        "model": raw["model"], "cache_enabled": raw["cache_enabled"],
+        "retrieve": raw["retrieve"], "calls": raw["calls"], "note": raw["note"],
+    }
+    (OUT / "phase2-cache.json").write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     export_retrieval()
@@ -290,6 +299,7 @@ def main():
     export_function_tool()
     export_sdk_vs_http()
     export_structured_output()
+    export_cache_usage()
     for path in sorted(OUT.glob("*.json")):
         print(path)
 

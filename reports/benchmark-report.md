@@ -103,6 +103,10 @@ Equivalent retrieval-free, uncached requests were sent sequentially through the 
 
 One retrieval-free call using the Responses `text.format` JSON Schema form completed. The output parsed as JSON and passed local checks for the required `status="ready"` enum, integer `count`, and exact object keys. This is one simple schema and does not establish broader schema-feature support. Reproduce with `.venv/bin/python datasets/check_structured_output.py`; the raw answer is local under ignored `results/phase2-structured-output/`, and the sanitized validation summary is in [`reports/evidence/phase2-structured-output.json`](evidence/phase2-structured-output.json).
 
+## Cache-usage probe
+
+Three sequential retrieval-free requests compared two identical prompts with a unique-prefix prompt. All outputs matched the requested short response. The first identical call reported 143 input/0 cached tokens at 425.459 ms; the second reported 0 input/0 cached tokens at 68.239 ms; the unique-prefix call reported 144 input/0 cached tokens at 138.578 ms. The response usage did not report cached tokens for any call, so the latency and zero-input observation are not treated as proof of a cache hit. Reproduce with `.venv/bin/python datasets/check_cache_usage.py`; sanitized usage is in [`reports/evidence/phase2-cache.json`](evidence/phase2-cache.json), and raw output is under ignored `results/phase2-cache/`.
+
 ## Tasks API evidence
 
 The existing Phase 3 evidence covered five bounded public-doc tasks, cancellation, resuming the same task ID through a fresh client, artifact availability/checksum, runtime and model-cost limits, duplicate submission using one idempotency key, and a cancel/poll race. All five initial smoke tasks reached terminal `completed`; the unreachable URL produced an honest failure rather than fabricated facts. These observations are single runs, not a reliability estimate. Model usage cost is recorded separately from total browser/task billing.

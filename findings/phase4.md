@@ -81,5 +81,6 @@ These findings separate confirmed local integration bugs from measured answer-qu
 - One forced local `order_lookup` function call completed the tool round trip and the answer reflected the fixture result. Invalid tool arguments and tool failure paths remain untested.
 - One equivalent raw HTTP/SDK pair matched response text and token usage (127 input, 3 output); raw HTTP was faster in this one sequential pair. This is not a stable client-overhead estimate.
 - One Responses JSON Schema smoke call returned valid JSON with the required fields and types. Nested/complex schema behavior remains untested.
+- In a three-call cache probe, the identical second request reported 0 input and 0 cached tokens with lower latency; the unique-prefix call reported 144 input and 0 cached tokens. The usage fields do not establish whether a response-cache or prompt-cache hit occurred.
 - Multi-index isolation, RSS/memory, concurrency, streaming, function tools, structured output, raw HTTP versus SDK, cache comparison, and contradictory documents remain untested.
 - Context7 and CaveCrew tools were unavailable in this session; Moss behavior was checked against the installed SDK and official Moss documentation.

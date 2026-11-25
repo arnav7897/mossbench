@@ -1,0 +1,35 @@
+{
+  "cache_enabled": true,
+  "calls": [
+    {
+      "cached_input_tokens": 0,
+      "case": "repeated-1",
+      "input_tokens": 143,
+      "latency_ms": 425.459,
+      "output_matches_expected": true,
+      "output_tokens": 3,
+      "status": "completed"
+    },
+    {
+      "cached_input_tokens": 0,
+      "case": "repeated-2",
+      "input_tokens": 0,
+      "latency_ms": 68.239,
+      "output_matches_expected": true,
+      "output_tokens": 2,
+      "status": "completed"
+    },
+    {
+      "cached_input_tokens": 0,
+      "case": "unique-prefix",
+      "input_tokens": 144,
+      "latency_ms": 138.578,
+      "output_matches_expected": true,
+      "output_tokens": 3,
+      "status": "completed"
+    }
+  ],
+  "model": "moss/fastlane-1",
+  "note": "Three sequential observations; cached-token counts are reported by the response and no cache hit is assumed.",
+  "retrieve": false
+}
