@@ -1,0 +1,31 @@
+{
+  "started_at_utc": "2026-11-25T17:15:06.664382+00:00",
+  "question": "What is PostgreSQL's default transaction isolation level?",
+  "source": "https://www.postgresql.org/docs/current/transaction-iso.html",
+  "expected_answer": "Read Committed",
+  "top_k": 5,
+  "task_limits": {
+    "max_runtime_seconds": 60,
+    "max_cost_usd": 0.05
+  },
+  "retrieval": {
+    "passages": 5,
+    "supporting_ranks": [
+      1
+    ],
+    "load_and_query_ms": 6481
+  },
+  "inference": {
+    "model": "moss/fastlane-1",
+    "status": "completed",
+    "answer_matches": true
+  },
+  "browser": {
+    "status": "completed",
+    "answer_matches": true,
+    "quote_matches_source_sentence": true,
+    "model_cost_usd": 0.004758
+  },
+  "verified": true,
+  "elapsed_seconds": 23.194
+}

@@ -1,0 +1,120 @@
+[
+  {
+    "started_at_utc": "2026-11-25T17:15:00.124975+00:00",
+    "workload": "ten-module pilot",
+    "command_args": ["--pilot"],
+    "interpretation": "The runtime job finished before the limit. The second submission was rejected below the documented $0.01 minimum.",
+    "source": "https://docs.python.org/3/library/index.html",
+    "model": "moss-fast",
+    "poll_interval_s": 2,
+    "expected": {
+      "runtime": "Task finishes or stops at the 60-second limit",
+      "spend": "Task stays within its model cost cap",
+      "concurrency": "Each independent submission reaches its own terminal state"
+    },
+    "observations": [
+      {
+        "scenario": "runtime",
+        "requested_model_limit_usd": 0.15,
+        "runtime_limit_s": 60,
+        "terminal_status": "completed",
+        "error_code": null,
+        "returned_model_limit_usd": 0.15,
+        "returned_runtime_limit_s": 60,
+        "started_at": "2026-11-25T17:15:02.324705+00:00",
+        "finished_at": "2026-11-25T17:15:45.704848+00:00",
+        "service_duration_s": 43.38,
+        "model_cost_usd": 0.008676,
+        "model_overshoot_usd": 0,
+        "client_duration_s": 45.84
+      },
+      {
+        "scenario": "spend",
+        "requested_model_limit_usd": 0.001,
+        "runtime_limit_s": 60,
+        "exception_type": "InferenceError",
+        "error_code": "invalid_request_error",
+        "client_duration_s": 0.947
+      }
+    ]
+  },
+  {
+    "started_at_utc": "2026-11-25T17:16:20.071636+00:00",
+    "workload": "annotated module guide",
+    "command_args": [],
+    "interpretation": "The two service intervals overlapped. The budget failure exceeded the model threshold by $0.007258. Moss documents that in-flight model calls finish and bill.",
+    "limit_docs": "https://docs.moss.dev/docs/inference/tasks.md",
+    "source": "https://docs.python.org/3/library/index.html",
+    "model": "moss-fast",
+    "poll_interval_s": 2,
+    "expected": {
+      "runtime": "Task finishes or stops at the 60-second limit",
+      "spend": "Task stays within its model cost cap",
+      "concurrency": "Each independent submission reaches its own terminal state"
+    },
+    "observations": [
+      {
+        "scenario": "runtime",
+        "requested_model_limit_usd": 0.15,
+        "runtime_limit_s": 60,
+        "terminal_status": "completed",
+        "error_code": null,
+        "returned_model_limit_usd": 0.15,
+        "returned_runtime_limit_s": 60,
+        "started_at": "2026-11-25T17:16:20.616104+00:00",
+        "finished_at": "2026-11-25T17:17:18.784657+00:00",
+        "service_duration_s": 58.169,
+        "model_cost_usd": 0.039018,
+        "model_overshoot_usd": 0,
+        "client_duration_s": 60.137
+      },
+      {
+        "scenario": "spend",
+        "requested_model_limit_usd": 0.01,
+        "runtime_limit_s": 180,
+        "terminal_status": "failed",
+        "error_code": "budget_exceeded",
+        "returned_model_limit_usd": 0.01,
+        "returned_runtime_limit_s": 180,
+        "started_at": "2026-11-25T17:16:20.631209+00:00",
+        "finished_at": "2026-11-25T17:16:51.006763+00:00",
+        "service_duration_s": 30.376,
+        "model_cost_usd": 0.017258,
+        "model_overshoot_usd": 0.007258,
+        "client_duration_s": 32.354
+      }
+    ],
+    "service_run_overlap_s": 30.376
+  },
+  {
+    "started_at_utc": "2026-11-25T17:18:04.179739+00:00",
+    "workload": "timed title monitor",
+    "command_args": ["--monitor"],
+    "interpretation": "The service returned time_limit for the 90-second goal. Its start-to-finish timestamps spanned 61.234 seconds under the 60-second runtime setting.",
+    "source": "https://docs.python.org/3/library/index.html",
+    "model": "moss-fast",
+    "poll_interval_s": 2,
+    "expected": {
+      "runtime": "Task finishes or stops at the 60-second limit",
+      "spend": "Task stays within its model cost cap",
+      "concurrency": "Each independent submission reaches its own terminal state"
+    },
+    "observations": [
+      {
+        "scenario": "runtime",
+        "requested_model_limit_usd": 0.1,
+        "runtime_limit_s": 60,
+        "terminal_status": "failed",
+        "error_code": "time_limit",
+        "returned_model_limit_usd": 0.1,
+        "returned_runtime_limit_s": 60,
+        "started_at": "2026-11-25T17:18:05.696902+00:00",
+        "finished_at": "2026-11-25T17:19:06.930933+00:00",
+        "service_duration_s": 61.234,
+        "model_cost_usd": 0.006933,
+        "model_overshoot_usd": 0,
+        "client_duration_s": 63.835
+      }
+    ]
+  }
+]

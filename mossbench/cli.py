@@ -29,9 +29,11 @@ def main():
     search.add_argument("--index", required=True)
     search.add_argument("--top-k", type=int, default=5)
     search.add_argument("query")
-    for name in ("ask", "benchmark"):
-        command = commands.add_parser(name, help=f"{name} workflow (not implemented yet)")
-        command.set_defaults(pending=True)
+    ask = commands.add_parser("ask", help="answer a question using passages from your selected index")
+    ask.add_argument("--index", required=True)
+    ask.add_argument("--top-k", type=int, choices=range(1, 11), default=5)
+    ask.add_argument("query")
+    commands.add_parser("benchmark", help="use a specific benchmark-* command")
     research = commands.add_parser("research", help="submit or manage a Moss browser task")
     research_ops = research.add_subparsers(dest="research_op", required=True)
     submit = research_ops.add_parser("submit")
@@ -136,7 +138,7 @@ def main():
         if args.research_op == "submit" and (not 60 <= args.max_runtime <= 7200 or not 0 < args.max_model_cost <= 0.25):
             raise SystemExit("runtime must be 60-7200 seconds; max model cost must be > 0 and <= 0.25")
         asyncio.run(_research_command(args, config))
-    elif args.command in {"ingest", "update-index", "search"}:
+    elif args.command in {"ingest", "update-index", "search", "ask"}:
         config = load_config()
         if not config.moss_project_id or not config.moss_project_key:
             raise SystemExit("Set MOSS_PROJECT_ID and MOSS_PROJECT_KEY in .env")
@@ -177,9 +179,35 @@ async def _retrieval_command(args, config):
             print(f"Index updated: {args.index}; result={result}")
         else:
             result = await client.search(args.index, args.query, args.top_k)
+            if args.command == "ask":
+                await _answer_from_passages(config, args.query, result.docs)
+                return
             print(f"index={result.index_name} latency_ms={result.time_taken_ms}")
             for rank, doc in enumerate(result.docs, 1):
                 print(f"{rank}. id={doc.id} score={doc.score:.4f} metadata={doc.metadata}\n{doc.text}")
+    finally:
+        await client.close()
+
+
+async def _answer_from_passages(config, question, documents):
+    from moss import MossInference
+
+    if not documents:
+        print("No passages found in this index.")
+        return
+    passages = "\n\n".join(f"[{n}] {doc.text}" for n, doc in enumerate(documents, 1))
+    client = MossInference(config.moss_project_id, config.moss_project_key, max_retries=0)
+    try:
+        response = await client.responses.create(
+            model=config.moss_model, input=f"Passages:\n{passages}\n\nQuestion: {question}",
+            instructions="Answer from the supplied passages. Cite passage numbers. If the passages lack the answer, say so.",
+            retrieve=False, cache=False, max_output_tokens=256)
+        if response.status != "completed" or not (response.output_text or "").strip():
+            raise SystemExit(f"No complete answer received (response status: {response.status}).")
+        print(response.output_text)
+        print("\nRetrieved passages")
+        for n, doc in enumerate(documents, 1):
+            print(f"[{n}] {doc.id} {(doc.metadata or {}).get('source_url', '')}".rstrip())
     finally:
         await client.close()
 

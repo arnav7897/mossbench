@@ -1,0 +1,83 @@
+{
+  "recorded_at_utc": "2026-11-25T17:14:40.332392+00:00",
+  "model": "moss/fastlane-1",
+  "endpoint": "https://inference.moss.dev/v1/responses",
+  "retrieve": false,
+  "cache": false,
+  "automatic_retries": 0,
+  "checks": [
+    {
+      "case": "missing_auth",
+      "expected": "Reject without credentials",
+      "observed": {
+        "http_status": 401,
+        "error_type": "authentication_error",
+        "error_code": "authentication_error",
+        "elapsed_ms": 539.55
+      }
+    },
+    {
+      "case": "invalid_auth",
+      "expected": "Reject dummy credentials",
+      "observed": {
+        "http_status": 401,
+        "error_type": "authentication_error",
+        "error_code": "authentication_error",
+        "elapsed_ms": 947.55
+      }
+    },
+    {
+      "case": "malformed_json",
+      "expected": "Reject syntactically invalid JSON",
+      "observed": {
+        "http_status": 400,
+        "error_type": "invalid_request_error",
+        "error_code": "invalid_request_error",
+        "elapsed_ms": 77.34
+      }
+    },
+    {
+      "case": "unknown_model",
+      "expected": "Reject unknown model",
+      "observed": {
+        "http_status": 400,
+        "error_type": "invalid_request_error",
+        "error_code": "model_not_found",
+        "elapsed_ms": 138.09
+      }
+    },
+    {
+      "case": "unknown_option",
+      "expected": "Reject or explicitly flag unknown option",
+      "observed": {
+        "http_status": 400,
+        "error_type": "invalid_request_error",
+        "error_code": "unsupported_parameter",
+        "elapsed_ms": 91.18
+      }
+    },
+    {
+      "case": "client_disconnect",
+      "expected": "Client receives text then closes stream before completion",
+      "observed": {
+        "http_status": 200,
+        "received_delta": true,
+        "completed": false,
+        "closed_after_delta": true,
+        "elapsed_ms": 1728.85
+      }
+    },
+    {
+      "case": "fresh_request",
+      "expected": "Complete a separate request and return OK",
+      "observed": {
+        "http_status": 200,
+        "received_delta": true,
+        "completed": true,
+        "closed_after_delta": false,
+        "exact_answer": true,
+        "elapsed_ms": 689.97
+      }
+    }
+  ]
+}

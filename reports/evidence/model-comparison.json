@@ -1,0 +1,1524 @@
+{
+  "started_utc": "2026-11-25T17:14:59.512154+00:00",
+  "query_sha256": "e80af5b85a5013383eb3a6355a9e377d43a33e79a9dc825748438c6eb33aa09b",
+  "seed": 42,
+  "planned_per_model": 75,
+  "rows": [
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-008",
+      "repeat": 1,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 729.2
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-008",
+      "repeat": 1,
+      "expected": "A",
+      "status": "incomplete",
+      "selected": null,
+      "correct": false,
+      "ms": 2256.4
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-002",
+      "repeat": 1,
+      "expected": "C",
+      "status": "completed",
+      "selected": "C",
+      "correct": true,
+      "ms": 1884.4
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-002",
+      "repeat": 1,
+      "expected": "C",
+      "status": "completed",
+      "selected": "C",
+      "correct": true,
+      "ms": 199.8
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-018",
+      "repeat": 1,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 242.2
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-018",
+      "repeat": 1,
+      "expected": "A",
+      "status": "incomplete",
+      "selected": null,
+      "correct": false,
+      "ms": 1750.3
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-016",
+      "repeat": 1,
+      "expected": "D",
+      "status": "completed",
+      "selected": "D",
+      "correct": true,
+      "ms": 717.7
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-016",
+      "repeat": 1,
+      "expected": "D",
+      "status": "completed",
+      "selected": "D",
+      "correct": true,
+      "ms": 148.1
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-015",
+      "repeat": 1,
+      "expected": "B",
+      "status": "completed",
+      "selected": "B",
+      "correct": true,
+      "ms": 174.2
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-015",
+      "repeat": 1,
+      "expected": "B",
+      "status": "incomplete",
+      "selected": "B",
+      "correct": true,
+      "ms": 1437.4
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-009",
+      "repeat": 1,
+      "expected": "B",
+      "status": "incomplete",
+      "selected": "B",
+      "correct": true,
+      "ms": 1990.4
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-009",
+      "repeat": 1,
+      "expected": "B",
+      "status": "completed",
+      "selected": "B",
+      "correct": true,
+      "ms": 151.1
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-007",
+      "repeat": 1,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 378.8
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-007",
+      "repeat": 1,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 1734.3
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-006",
+      "repeat": 1,
+      "expected": "A",
+      "status": "incomplete",
+      "selected": null,
+      "correct": false,
+      "ms": 1013.7
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-006",
+      "repeat": 1,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 144.1
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-028",
+      "repeat": 1,
+      "expected": "C",
+      "status": "completed",
+      "selected": "C",
+      "correct": true,
+      "ms": 140.3
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-028",
+      "repeat": 1,
+      "expected": "C",
+      "status": "incomplete",
+      "selected": null,
+      "correct": false,
+      "ms": 895.4
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-039",
+      "repeat": 1,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 863.9
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-039",
+      "repeat": 1,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 137.0
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-001",
+      "repeat": 1,
+      "expected": "D",
+      "status": "completed",
+      "selected": "D",
+      "correct": true,
+      "ms": 139.1
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-001",
+      "repeat": 1,
+      "expected": "D",
+      "status": "completed",
+      "selected": "D",
+      "correct": true,
+      "ms": 1112.7
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-003",
+      "repeat": 1,
+      "expected": "C",
+      "status": "incomplete",
+      "selected": null,
+      "correct": false,
+      "ms": 1091.0
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-003",
+      "repeat": 1,
+      "expected": "C",
+      "status": "completed",
+      "selected": "C",
+      "correct": true,
+      "ms": 239.4
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-034",
+      "repeat": 1,
+      "expected": "C",
+      "status": "completed",
+      "selected": "C",
+      "correct": true,
+      "ms": 222.2
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-034",
+      "repeat": 1,
+      "expected": "C",
+      "status": "completed",
+      "selected": "C",
+      "correct": true,
+      "ms": 1008.9
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-040",
+      "repeat": 1,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 1348.8
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-040",
+      "repeat": 1,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 144.3
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-017",
+      "repeat": 1,
+      "expected": "C",
+      "status": "completed",
+      "selected": "C",
+      "correct": true,
+      "ms": 155.9
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-017",
+      "repeat": 1,
+      "expected": "C",
+      "status": "completed",
+      "selected": "C",
+      "correct": true,
+      "ms": 942.1
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-020",
+      "repeat": 1,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 879.1
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-020",
+      "repeat": 1,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 160.8
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-030",
+      "repeat": 1,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 156.5
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-030",
+      "repeat": 1,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 1477.7
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-038",
+      "repeat": 1,
+      "expected": "D",
+      "status": "completed",
+      "selected": "D",
+      "correct": true,
+      "ms": 1002.2
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-038",
+      "repeat": 1,
+      "expected": "D",
+      "status": "completed",
+      "selected": "D",
+      "correct": true,
+      "ms": 252.9
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-032",
+      "repeat": 1,
+      "expected": "C",
+      "status": "completed",
+      "selected": "C",
+      "correct": true,
+      "ms": 253.7
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-032",
+      "repeat": 1,
+      "expected": "C",
+      "status": "completed",
+      "selected": "C",
+      "correct": true,
+      "ms": 645.4
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-021",
+      "repeat": 1,
+      "expected": "B",
+      "status": "completed",
+      "selected": "B",
+      "correct": true,
+      "ms": 2250.0
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-021",
+      "repeat": 1,
+      "expected": "B",
+      "status": "completed",
+      "selected": "B",
+      "correct": true,
+      "ms": 154.5
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-023",
+      "repeat": 1,
+      "expected": "C",
+      "status": "completed",
+      "selected": "C",
+      "correct": true,
+      "ms": 145.3
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-023",
+      "repeat": 1,
+      "expected": "C",
+      "status": "completed",
+      "selected": "C",
+      "correct": true,
+      "ms": 929.7
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-014",
+      "repeat": 1,
+      "expected": "D",
+      "status": "completed",
+      "selected": "D",
+      "correct": true,
+      "ms": 1387.1
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-014",
+      "repeat": 1,
+      "expected": "D",
+      "status": "completed",
+      "selected": "D",
+      "correct": true,
+      "ms": 541.0
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-027",
+      "repeat": 1,
+      "expected": "D",
+      "status": "completed",
+      "selected": "D",
+      "correct": true,
+      "ms": 183.7
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-027",
+      "repeat": 1,
+      "expected": "D",
+      "status": "completed",
+      "selected": "D",
+      "correct": true,
+      "ms": 755.0
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-036",
+      "repeat": 1,
+      "expected": "B",
+      "status": "completed",
+      "selected": "B",
+      "correct": true,
+      "ms": 1007.2
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-036",
+      "repeat": 1,
+      "expected": "B",
+      "status": "completed",
+      "selected": "B",
+      "correct": true,
+      "ms": 136.9
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-035",
+      "repeat": 1,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 140.7
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-035",
+      "repeat": 1,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 793.7
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-008",
+      "repeat": 2,
+      "expected": "A",
+      "status": "incomplete",
+      "selected": null,
+      "correct": false,
+      "ms": 2253.6
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-008",
+      "repeat": 2,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 143.9
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-002",
+      "repeat": 2,
+      "expected": "C",
+      "status": "completed",
+      "selected": "C",
+      "correct": true,
+      "ms": 197.0
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-002",
+      "repeat": 2,
+      "expected": "C",
+      "status": "completed",
+      "selected": "C",
+      "correct": true,
+      "ms": 733.8
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-018",
+      "repeat": 2,
+      "expected": "A",
+      "status": "incomplete",
+      "selected": null,
+      "correct": false,
+      "ms": 1140.6
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-018",
+      "repeat": 2,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 204.1
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-016",
+      "repeat": 2,
+      "expected": "D",
+      "status": "completed",
+      "selected": "D",
+      "correct": true,
+      "ms": 250.9
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-016",
+      "repeat": 2,
+      "expected": "D",
+      "status": "completed",
+      "selected": "D",
+      "correct": true,
+      "ms": 618.5
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-015",
+      "repeat": 2,
+      "expected": "B",
+      "status": "completed",
+      "selected": "B",
+      "correct": true,
+      "ms": 1084.7
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-015",
+      "repeat": 2,
+      "expected": "B",
+      "status": "completed",
+      "selected": "B",
+      "correct": true,
+      "ms": 147.9
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-009",
+      "repeat": 2,
+      "expected": "B",
+      "status": "completed",
+      "selected": "B",
+      "correct": true,
+      "ms": 151.6
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-009",
+      "repeat": 2,
+      "expected": "B",
+      "status": "incomplete",
+      "selected": null,
+      "correct": false,
+      "ms": 939.7
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-007",
+      "repeat": 2,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 880.4
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-007",
+      "repeat": 2,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 166.7
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-006",
+      "repeat": 2,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 257.0
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-006",
+      "repeat": 2,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 830.3
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-028",
+      "repeat": 2,
+      "expected": "C",
+      "status": "incomplete",
+      "selected": null,
+      "correct": false,
+      "ms": 1197.7
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-028",
+      "repeat": 2,
+      "expected": "C",
+      "status": "completed",
+      "selected": "C",
+      "correct": true,
+      "ms": 246.7
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-039",
+      "repeat": 2,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 254.4
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-039",
+      "repeat": 2,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 947.6
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-001",
+      "repeat": 2,
+      "expected": "D",
+      "status": "completed",
+      "selected": "D",
+      "correct": true,
+      "ms": 739.9
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-001",
+      "repeat": 2,
+      "expected": "D",
+      "status": "completed",
+      "selected": "D",
+      "correct": true,
+      "ms": 144.1
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-003",
+      "repeat": 2,
+      "expected": "C",
+      "status": "completed",
+      "selected": "C",
+      "correct": true,
+      "ms": 148.2
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-003",
+      "repeat": 2,
+      "expected": "C",
+      "status": "incomplete",
+      "selected": null,
+      "correct": false,
+      "ms": 825.1
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-034",
+      "repeat": 2,
+      "expected": "C",
+      "status": "completed",
+      "selected": "C",
+      "correct": true,
+      "ms": 762.0
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-034",
+      "repeat": 2,
+      "expected": "C",
+      "status": "completed",
+      "selected": "C",
+      "correct": true,
+      "ms": 162.9
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-040",
+      "repeat": 2,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 257.0
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-040",
+      "repeat": 2,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 984.6
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-017",
+      "repeat": 2,
+      "expected": "C",
+      "status": "incomplete",
+      "selected": "C",
+      "correct": true,
+      "ms": 755.2
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-017",
+      "repeat": 2,
+      "expected": "C",
+      "status": "completed",
+      "selected": "C",
+      "correct": true,
+      "ms": 251.1
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-020",
+      "repeat": 2,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 143.1
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-020",
+      "repeat": 2,
+      "expected": "A",
+      "status": "incomplete",
+      "selected": null,
+      "correct": false,
+      "ms": 1367.0
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-030",
+      "repeat": 2,
+      "expected": "A",
+      "status": "incomplete",
+      "selected": null,
+      "correct": false,
+      "ms": 1102.6
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-030",
+      "repeat": 2,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 141.9
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-038",
+      "repeat": 2,
+      "expected": "D",
+      "status": "completed",
+      "selected": "D",
+      "correct": true,
+      "ms": 139.8
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-038",
+      "repeat": 2,
+      "expected": "D",
+      "status": "completed",
+      "selected": "D",
+      "correct": true,
+      "ms": 1077.9
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-032",
+      "repeat": 2,
+      "expected": "C",
+      "status": "completed",
+      "selected": "C",
+      "correct": true,
+      "ms": 1278.5
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-032",
+      "repeat": 2,
+      "expected": "C",
+      "status": "completed",
+      "selected": "C",
+      "correct": true,
+      "ms": 243.7
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-021",
+      "repeat": 2,
+      "expected": "B",
+      "status": "completed",
+      "selected": "B",
+      "correct": true,
+      "ms": 253.9
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-021",
+      "repeat": 2,
+      "expected": "B",
+      "status": "incomplete",
+      "selected": null,
+      "correct": false,
+      "ms": 1011.9
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-023",
+      "repeat": 2,
+      "expected": "C",
+      "status": "completed",
+      "selected": "C",
+      "correct": true,
+      "ms": 1361.5
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-023",
+      "repeat": 2,
+      "expected": "C",
+      "status": "completed",
+      "selected": "C",
+      "correct": true,
+      "ms": 145.6
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-014",
+      "repeat": 2,
+      "expected": "D",
+      "status": "completed",
+      "selected": "D",
+      "correct": true,
+      "ms": 155.0
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-014",
+      "repeat": 2,
+      "expected": "D",
+      "status": "incomplete",
+      "selected": null,
+      "correct": false,
+      "ms": 765.7
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-027",
+      "repeat": 2,
+      "expected": "D",
+      "status": "completed",
+      "selected": "D",
+      "correct": true,
+      "ms": 856.2
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-027",
+      "repeat": 2,
+      "expected": "D",
+      "status": "completed",
+      "selected": "D",
+      "correct": true,
+      "ms": 139.9
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-036",
+      "repeat": 2,
+      "expected": "B",
+      "status": "completed",
+      "selected": "B",
+      "correct": true,
+      "ms": 175.4
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-036",
+      "repeat": 2,
+      "expected": "B",
+      "status": "completed",
+      "selected": "B",
+      "correct": true,
+      "ms": 888.7
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-035",
+      "repeat": 2,
+      "expected": "A",
+      "status": "incomplete",
+      "selected": null,
+      "correct": false,
+      "ms": 791.2
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-035",
+      "repeat": 2,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 221.7
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-008",
+      "repeat": 3,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 241.5
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-008",
+      "repeat": 3,
+      "expected": "A",
+      "status": "incomplete",
+      "selected": null,
+      "correct": false,
+      "ms": 566.8
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-002",
+      "repeat": 3,
+      "expected": "C",
+      "status": "completed",
+      "selected": "C",
+      "correct": true,
+      "ms": 763.3
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-002",
+      "repeat": 3,
+      "expected": "C",
+      "status": "completed",
+      "selected": "C",
+      "correct": true,
+      "ms": 144.2
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-018",
+      "repeat": 3,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 144.4
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-018",
+      "repeat": 3,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 819.1
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-016",
+      "repeat": 3,
+      "expected": "D",
+      "status": "completed",
+      "selected": "D",
+      "correct": true,
+      "ms": 798.1
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-016",
+      "repeat": 3,
+      "expected": "D",
+      "status": "completed",
+      "selected": "D",
+      "correct": true,
+      "ms": 328.7
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-015",
+      "repeat": 3,
+      "expected": "B",
+      "status": "completed",
+      "selected": "B",
+      "correct": true,
+      "ms": 135.7
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-015",
+      "repeat": 3,
+      "expected": "B",
+      "status": "incomplete",
+      "selected": null,
+      "correct": false,
+      "ms": 4033.0
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-009",
+      "repeat": 3,
+      "expected": "B",
+      "status": "completed",
+      "selected": "B",
+      "correct": true,
+      "ms": 752.2
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-009",
+      "repeat": 3,
+      "expected": "B",
+      "status": "completed",
+      "selected": "B",
+      "correct": true,
+      "ms": 140.7
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-007",
+      "repeat": 3,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 140.9
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-007",
+      "repeat": 3,
+      "expected": "A",
+      "status": "incomplete",
+      "selected": null,
+      "correct": false,
+      "ms": 1991.2
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-006",
+      "repeat": 3,
+      "expected": "A",
+      "status": "incomplete",
+      "selected": null,
+      "correct": false,
+      "ms": 892.6
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-006",
+      "repeat": 3,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 136.5
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-028",
+      "repeat": 3,
+      "expected": "C",
+      "status": "completed",
+      "selected": "C",
+      "correct": true,
+      "ms": 132.6
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-028",
+      "repeat": 3,
+      "expected": "C",
+      "status": "incomplete",
+      "selected": null,
+      "correct": false,
+      "ms": 903.3
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-039",
+      "repeat": 3,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 1193.8
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-039",
+      "repeat": 3,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 265.0
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-001",
+      "repeat": 3,
+      "expected": "D",
+      "status": "completed",
+      "selected": "D",
+      "correct": true,
+      "ms": 242.2
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-001",
+      "repeat": 3,
+      "expected": "D",
+      "status": "completed",
+      "selected": "D",
+      "correct": true,
+      "ms": 766.0
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-003",
+      "repeat": 3,
+      "expected": "C",
+      "status": "incomplete",
+      "selected": null,
+      "correct": false,
+      "ms": 904.4
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-003",
+      "repeat": 3,
+      "expected": "C",
+      "status": "completed",
+      "selected": "C",
+      "correct": true,
+      "ms": 142.4
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-034",
+      "repeat": 3,
+      "expected": "C",
+      "status": "completed",
+      "selected": "C",
+      "correct": true,
+      "ms": 143.4
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-034",
+      "repeat": 3,
+      "expected": "C",
+      "status": "completed",
+      "selected": "C",
+      "correct": true,
+      "ms": 1158.3
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-040",
+      "repeat": 3,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 1177.6
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-040",
+      "repeat": 3,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 137.4
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-017",
+      "repeat": 3,
+      "expected": "C",
+      "status": "completed",
+      "selected": "C",
+      "correct": true,
+      "ms": 537.2
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-017",
+      "repeat": 3,
+      "expected": "C",
+      "status": "incomplete",
+      "selected": null,
+      "correct": false,
+      "ms": 992.3
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-020",
+      "repeat": 3,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 758.0
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-020",
+      "repeat": 3,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 249.3
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-030",
+      "repeat": 3,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 143.9
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-030",
+      "repeat": 3,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 906.9
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-038",
+      "repeat": 3,
+      "expected": "D",
+      "status": "completed",
+      "selected": "D",
+      "correct": true,
+      "ms": 3016.9
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-038",
+      "repeat": 3,
+      "expected": "D",
+      "status": "completed",
+      "selected": "D",
+      "correct": true,
+      "ms": 140.6
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-032",
+      "repeat": 3,
+      "expected": "C",
+      "status": "completed",
+      "selected": "C",
+      "correct": true,
+      "ms": 145.0
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-032",
+      "repeat": 3,
+      "expected": "C",
+      "status": "completed",
+      "selected": "C",
+      "correct": true,
+      "ms": 914.3
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-021",
+      "repeat": 3,
+      "expected": "B",
+      "status": "incomplete",
+      "selected": "B",
+      "correct": true,
+      "ms": 1002.7
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-021",
+      "repeat": 3,
+      "expected": "B",
+      "status": "completed",
+      "selected": "B",
+      "correct": true,
+      "ms": 249.7
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-023",
+      "repeat": 3,
+      "expected": "C",
+      "status": "completed",
+      "selected": "C",
+      "correct": true,
+      "ms": 251.1
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-023",
+      "repeat": 3,
+      "expected": "C",
+      "status": "completed",
+      "selected": "C",
+      "correct": true,
+      "ms": 754.3
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-014",
+      "repeat": 3,
+      "expected": "D",
+      "status": "incomplete",
+      "selected": null,
+      "correct": false,
+      "ms": 5181.6
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-014",
+      "repeat": 3,
+      "expected": "D",
+      "status": "completed",
+      "selected": "D",
+      "correct": true,
+      "ms": 197.0
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-027",
+      "repeat": 3,
+      "expected": "D",
+      "status": "completed",
+      "selected": "D",
+      "correct": true,
+      "ms": 368.8
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-027",
+      "repeat": 3,
+      "expected": "D",
+      "status": "completed",
+      "selected": "D",
+      "correct": true,
+      "ms": 844.7
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-036",
+      "repeat": 3,
+      "expected": "B",
+      "status": "completed",
+      "selected": "B",
+      "correct": true,
+      "ms": 904.8
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-036",
+      "repeat": 3,
+      "expected": "B",
+      "status": "completed",
+      "selected": "B",
+      "correct": true,
+      "ms": 538.9
+    },
+    {
+      "model": "moss/fastlane-1",
+      "question": "rd-035",
+      "repeat": 3,
+      "expected": "A",
+      "status": "completed",
+      "selected": "A",
+      "correct": true,
+      "ms": 214.5
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "question": "rd-035",
+      "repeat": 3,
+      "expected": "A",
+      "status": "incomplete",
+      "selected": null,
+      "correct": false,
+      "ms": 926.0
+    }
+  ],
+  "summary": {
+    "moss/fastlane-1": {
+      "attempted": 75,
+      "completed": 75,
+      "correct": 75,
+      "p50_ms": 160.8,
+      "p95_ms": 537.2
+    },
+    "deepseek/deepseek-v4.1-flash": {
+      "attempted": 75,
+      "completed": 47,
+      "correct": 47,
+      "p50_ms": 906.9,
+      "p95_ms": 1884.4
+    }
+  }
+}
