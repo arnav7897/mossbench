@@ -43,7 +43,7 @@ These findings separate confirmed local integration bugs from measured answer-qu
 - **Expected:** The CLI reports index readiness only after the async SDK mutation has completed.
 - **Observed:** The original adapter invoked async `create_index` and `close` without awaiting them, so it printed a success message while Python emitted “coroutine was never awaited” warnings. The adapter now awaits these methods; the corrected index mutations completed and the real-doc index was verified at 618 chunks.
 - **Impact:** The old command gave false-positive setup status and left no usable index.
-- **Evidence:** Historical details and the correction are in [`findings/phase1.md`](phase1.md), under the fixed adapter finding. Current ingestion implementation: [`retrieval.py`](../mossbench/clients/retrieval.py) and [`ingest_real_docs.py`](../datasets/ingest_real_docs.py).
+- **Evidence:** Historical details and the correction are in [`findings/foundation_portal_api_findings.md`](foundation_portal_api_findings.md), under the fixed adapter finding. Current ingestion implementation: [`retrieval.py`](../mossbench/clients/retrieval.py) and [`ingest_real_docs.py`](../datasets/ingest_real_docs.py).
 - **Disposition:** Fixed in the client; no provider-side change is needed.
 
 ## F6: Reject unsupported Tasks runtime limits before sending a request
@@ -71,7 +71,7 @@ These findings separate confirmed local integration bugs from measured answer-qu
 ## Other evidence and untested coverage
 
 - Tasks smoke/recovery cases completed with honest unreachable-URL failure, schema checks, cancellation, same-ID resume, artifact checksum, model-cost limit, duplicate idempotency key, and a cancel/poll race. The runs are small single observations; see the linked Phase 3 review files in [`reports/benchmark-report.md`](../reports/benchmark-report.md).
-- Authenticated Portal UI smoke observations and ranked findings are recorded in [`findings/phase1.md`](../findings/phase1.md), with sanitized metrics in [`reports/evidence/phase1-portal-smoke.json`](../reports/evidence/phase1-portal-smoke.json). This is not a complete usability or accessibility audit.
+- Authenticated Portal UI smoke observations and ranked findings are recorded in [`findings/portal_findings.md`](../findings/portal_findings.md), with sanitized metrics in [`reports/evidence/phase1-portal-smoke.json`](../reports/evidence/phase1-portal-smoke.json). This is not a complete usability or accessibility audit.
 - A two-question unsupported-answer probe produced four abstaining answers across LLM-only and manual RAG; this is a smoke observation, not a general abstention rate.
 - Local BM25 ran against 100, 1,000, and 10,000 synthetic documents using the same 50 queries; recall stayed constant and p50 rose from 0.330 ms to 38.810 ms. All added documents were unrelated decoys, so this does not measure contradictory-document behavior or Moss cloud scaling.
 - A supported retrieval control ranked its page first; three unsupported technical questions nevertheless returned plausible topic pages, including an unrelated Celery page for an exact Redis-timeout question. This is a retrieval false-positive smoke observation; scores are not calibrated and no answer-generation failure is inferred.

@@ -128,7 +128,7 @@ The existing Phase 3 evidence covered five bounded public-doc tasks, cancellatio
 
 ## Ranked findings and actions
 
-1. **High — improve answer-passage coverage and expose provenance.** Top-10 parent-page recall was perfect, but the top-three RAG context missed supported facts, and hosted source passages were not saved. A passage-level result/citation contract would make this diagnosable. See [`findings/phase4.md`](../findings/phase4.md#f1-rag-coverage-and-provenance).
+1. **High — improve answer-passage coverage and expose provenance.** Top-10 parent-page recall was perfect, but the top-three RAG context missed supported facts, and hosted source passages were not saved. A passage-level result/citation contract would make this diagnosable. See [`findings/reproduction_submission_findings.md`](../findings/reproduction_submission_findings.md#f1-rag-coverage-and-provenance).
 2. **High — review incorrect Celery rate-limit claim.** Both RAG modes reported global limits for `rd-017`, contrary to the source page. Add an explicit evidence/abstention check for configuration-scope questions. This is confirmed in this sample, not a general error-rate claim.
 3. **Medium — investigate the hosted web-source crawl failure.** One bounded FastAPI crawl returned `CRAWL_FAILED`; direct public-page fetching succeeded and uploaded text worked. Root cause remains unconfirmed.
 4. **Medium — add inference cost visibility.** Per-call dollar charge was unavailable in the response object. Keep billing figures explicitly unknown rather than extrapolating from tokens.
@@ -141,7 +141,7 @@ The exact commands, source manifest, and dataset integrity checks are in [`READM
 
 ## Not measured / known limits
 
-- Authenticated Portal UI / Playwright smoke findings are in [`findings/phase1.md`](../findings/phase1.md); the smoke did not cover every workflow, screen-reader behavior, or full keyboard navigation.
+- Authenticated Portal smoke findings are in [`findings/portal_findings.md`](../findings/portal_findings.md); the smoke did not cover every workflow, screen-reader behavior, or full keyboard navigation.
 - No FAISS or Chroma comparison or Moss cloud scale sweep. RSS was observed once in a single Linux process and is not an isolated index-memory measurement. Concurrency was sampled only in one short 10-call-per-level run; no sustained load or post-cooldown repeat was run. The local BM25 scale sweep is synthetic and includes only unrelated decoys.
 - The contradictory-document result is a single controlled smoke check. The four-query unsupported retrieval probe and two-question abstention probe are also too small to estimate general behavior.
 - No multi-index isolation test because the only new-project test index slot was unavailable; unrelated user indexes were not queried.

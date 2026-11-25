@@ -121,14 +121,15 @@ Chunking is fixed at 1,200 characters with a 200-character overlap. Moss's nativ
 - [`reports/benchmark-report.md`](reports/benchmark-report.md) — retrieval and RAG measurements, answer review, task evidence, findings, and limitations.
 - [`reports/one-pager.md`](reports/one-pager.md) — concise hiring review draft.
 - [`reports/evidence/`](reports/evidence/) — sanitized aggregate metrics generated from local results by `reports/export_evidence.py`.
-- [`findings/phase1.md`](findings/phase1.md) and [`findings/phase4.md`](findings/phase4.md) — integration observations and ranked findings.
+- [`findings/foundation_portal_api_findings.md`](findings/foundation_portal_api_findings.md) and [`findings/reproduction_submission_findings.md`](findings/reproduction_submission_findings.md) — foundation observations and ranked findings.
+- [`findings/portal_findings.md`](findings/portal_findings.md), [`findings/inference_api_findings.md`](findings/inference_api_findings.md), and [`findings/tasks_api_findings.md`](findings/tasks_api_findings.md) — product-area review notes.
 - Raw benchmark JSONL and complete task records live under `results/` locally; they are ignored by Git because raw answers and task records can contain account-specific IDs and text. After reproducing a run, regenerate the shareable summaries with `.venv/bin/python reports/export_evidence.py`.
 
 The benchmark report is based on saved measurements. It does not estimate inference dollar cost from token counts. Review the report's sample sizes and unexecuted coverage before generalizing results.
 
 ## Current limits
 
-- Authenticated Portal/Playwright smoke findings are in [`findings/phase1.md`](findings/phase1.md); this is not a full usability or accessibility audit.
+- Authenticated Portal smoke findings are in [`findings/portal_findings.md`](findings/portal_findings.md); this is not a full usability or accessibility audit.
 - No web UI is implemented; the CLI is the minimum product surface.
 - The local baseline is standard-library BM25; FAISS/Chroma was not installed or evaluated.
 - The real-doc set has 40 answerable questions (32 evaluation, 8 held out), and the held-out sample is small. A separate two-question unsupported-answer smoke probe is documented in the benchmark report; it is too small to estimate general abstention behavior.
