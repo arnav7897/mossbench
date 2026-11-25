@@ -1,19 +1,27 @@
-# Moss Tasks API review
+# Phase 3 · Browser tasks, recovery and limits
 
-## What was exercised
+## What I tested
 
-- Reviewed task history and opened completed-task details.
-- Submitted one bounded task through the Portal: open the Python 3 documentation home page and return only its title; runtime cap 1 minute, spend cap $0.05.
-- Verified the terminal result against the public page title and inspected steps, duration, token usage, and displayed spend.
-- Reviewed a prior task using `example.invalid`; its details reported the site was unreachable, despite the task being marked Succeeded.
+I submitted bounded public-documentation tasks, validated structured output, downloaded an artifact, resumed polling in a fresh client and submitted the same request twice with an idempotency key. I measured cancellation and ran two independent tasks at the same time with different limits.
 
-## Results and feedback
+## What went well
 
-- The controlled task completed in 22 seconds, used 3 steps, and returned `Python 3.15.2 documentation`. Its detail reported $0.050 of the configured $0.05 cap and 31,784 tokens. The cap was reached exactly in the UI. This proves one bounded task path, not that every resource charge is capped or that the API enforces limits under concurrency.
-- Goal, URL, model, time limit, and spend limit are available in the form; task history/details expose a useful audit trail. Keep configured limits and actual cost together, including when a task fails or is cancelled.
-- A task labeled Succeeded even though its target site was unreachable can confuse runner completion with goal success. Distinguish execution completion from verified goal outcome, or clearly label partial/unfulfilled results.
-- History showed 13 tasks before the controlled run; the broader Usage dashboard later showed 14 tasks. These are account-level views, not a benchmark success rate. Success stats excluded cancelled tasks in the observed history view, so denominators should be explicit.
+| Check | What I expected | What I observed |
+|---|---|---|
+| Idempotency and recovery | Get back to the original job | Two creates with the same key returned the same ID. A fresh client resumed polling the original task. |
+| Cancellation | Reach a terminal state after cancelling | Active cancellation reached observed terminal status in 3.968 s. A concurrent cancel and poll saw running followed by cancelled. Cancelling an already completed job preserved its state. |
+| Validation | Reject invalid configuration and IDs | A 30-second runtime and a $0.001 model limit were rejected. An invalid task ID returned `not_found_error`. |
+| Output | Return the requested fields and an intact file | All four extraction results passed schema validation. A downloaded 79-byte artifact matched the declared size and contained the expected Python docs title and URL. Early access returned `task_not_finished`. |
+| Unreachable page | Accurately report reachability | The browser reported the site was unreachable. This satisfied the specific goal. |
+| Runtime cutoff | A 90-second monitoring goal should hit its 60-second limit | The task failed with `time_limit`. Moss timestamps spanned 61.234 s. The polling client observed the result at 63.835 s. |
+| Concurrent jobs | Each job respects its own settings | Two service runs overlapped for 30.376 s. One completed in 58.169 s within its 60 s limit. The other stopped with `budget_exceeded`. |
 
-## What was not tested
+## Recommendations
 
-Runtime enforcement, spend overshoot, cancellation timing, duplicate submission/idempotency, simultaneous-task races, polling recovery, malformed task parameters/IDs, schema validation, and artifact integrity remain untested. These need controlled, low-cost tests with separate expected and observed outcomes. Do not report the single successful task as a reliability rate.
+Explain at the spend control that model calls already in flight can finish and bill. This is how Moss documents the limit. [Moss Tasks limits](https://docs.moss.dev/docs/inference/tasks.md) In the overlapping run, the service echoed the requested $0.01 model limit and reported $0.017258 in model usage, $0.007258 above it. A separate shorter task stayed below the same cap at $0.006023. These figures come from the task's usage field. Final billed charges were unavailable. Five initial tasks reached terminal completion and four had schemas to validate. Each count describes its own check.
+
+## How I’d fix it
+
+For an optional strict cap, I’d reserve its maximum allowed cost against the remaining budget before starting a step and constrain its output allowance. If the remaining balance cannot fund the step, stop and return partial results. Show the requested limit, measured model spend, terminal reason and any separate browser charges together.
+
+[Task lifecycle, schemas and artifact hash](../reports/evidence/phase3-task-evidence.json) · [Timing, limit and concurrency records](../reports/evidence/task-limit-checks.json) · [Limit-check script](../datasets/check_task_limits.py)

@@ -126,9 +126,13 @@ The existing Phase 3 evidence covered five bounded public-doc tasks, cancellatio
 - Sanitized aggregates: [`reports/evidence/phase3-task-evidence.json`](evidence/phase3-task-evidence.json).
 - Full records are retained locally under `results/phase3-*`; raw task IDs and outputs are excluded from the public bundle.
 
+## Follow-up runs
+
+The [paired model run](evidence/model-comparison.json) adds 150 matched requests under a 64-token cap. The [full workflow](evidence/system-workflow.json) checks one PostgreSQL answer across retrieval, inference and independent browser verification. The [Tasks limits run](evidence/task-limit-checks.json) records an actual time limit termination and a budget stop with in-flight usage above the threshold. The [four findings files](../findings/) explain the expected and observed results for each phase.
+
 ## Ranked findings and actions
 
-1. **High — improve answer-passage coverage and expose provenance.** Top-10 parent-page recall was perfect, but the top-three RAG context missed supported facts, and hosted source passages were not saved. A passage-level result/citation contract would make this diagnosable. See [`findings/reproduction_submission_findings.md`](../findings/reproduction_submission_findings.md#f1-rag-coverage-and-provenance).
+1. **High — improve answer-passage coverage and expose provenance.** Top-10 parent-page recall was perfect, but the top-three RAG context missed supported facts, and hosted source passages were not saved. A passage-level result/citation contract would make this diagnosable. See [`findings/inference_api_findings.md`](../findings/inference_api_findings.md#recommendations).
 2. **High — review incorrect Celery rate-limit claim.** Both RAG modes reported global limits for `rd-017`, contrary to the source page. Add an explicit evidence/abstention check for configuration-scope questions. This is confirmed in this sample, not a general error-rate claim.
 3. **Medium — investigate the hosted web-source crawl failure.** One bounded FastAPI crawl returned `CRAWL_FAILED`; direct public-page fetching succeeded and uploaded text worked. Root cause remains unconfirmed.
 4. **Medium — add inference cost visibility.** Per-call dollar charge was unavailable in the response object. Keep billing figures explicitly unknown rather than extrapolating from tokens.
@@ -145,6 +149,6 @@ The exact commands, source manifest, and dataset integrity checks are in [`READM
 - No FAISS or Chroma comparison or Moss cloud scale sweep. RSS was observed once in a single Linux process and is not an isolated index-memory measurement. Concurrency was sampled only in one short 10-call-per-level run; no sustained load or post-cooldown repeat was run. The local BM25 scale sweep is synthetic and includes only unrelated decoys.
 - The contradictory-document result is a single controlled smoke check. The four-query unsupported retrieval probe and two-question abstention probe are also too small to estimate general behavior.
 - No multi-index isolation test because the only new-project test index slot was unavailable; unrelated user indexes were not queried.
-- Streaming, tool calling, structured output, cache usage, and SDK/raw HTTP each received one small smoke comparison. A matched one-pair stream/non-stream check confirmed identical text; stream disconnect/errors, tool error cases, complex schemas, cache-hit attribution, and broader transport equivalence remain untested. Long-context and inference error-contract suites were not run.
+- Streaming, tool calling, structured output, cache usage, and SDK/raw HTTP each received one small smoke comparison. A matched one-pair stream/non-stream check confirmed identical text; server-side behavior after disconnect, tool error cases, complex schemas, cache-hit attribution, and broader transport equivalence remain untested. The live [request validation and disconnect checks](evidence/inference-contracts.json) cover authentication, request shape and recovery. Long-context behavior remains open.
 - Twelve offline unit tests cover metric percentiles/grouping, Tasks runtime/cost validation, retry/resume behavior, and ledger upserts. Live and offline measurements are saved separately; no mocked result is included in the live benchmark evidence.
 - The account dashboard was inspected during the Portal smoke, but account-specific balance and billing amounts are omitted from this report.

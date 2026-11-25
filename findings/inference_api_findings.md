@@ -1,24 +1,40 @@
-# Moss Inference API review
+# Phase 2 · Search, grounded answers and the Inference API
 
-## What was exercised
+## What I tested
 
-- Sent an exact-response Playground request with project retrieval enabled and all indexes selected.
-- Confirmed a successful streamed response (HTTP 200, `text/event-stream`) and matching result in Logs & Traces.
-- Inspected model, retrieval count, token counts, first-token and total latency in Playground and the request log.
-- Ran a Moss SDK search over the synthetic Celery corpus to inspect passages and ranking.
+I compared direct answers, manually supplied passages, and Moss-hosted retrieval on Fastlane 1. The synthetic run used 50 questions in each mode (150 calls). The official-doc run used 40 questions in each mode (120 calls) across 618 passages from 18 FastAPI, Celery, Redis and PostgreSQL pages.
 
-## Results and product feedback
+## What went well
 
-- The exact-response prompt returned `PORTAL_SMOKE_OK`. Playground showed retrieval at 8 ms, first token at 941 ms, total at 950 ms, 720 input tokens and 32 output tokens. The corresponding log showed 864 ms first token, 877 ms total, 720 input and 32 output, with one retrieval. This one-run UI/log timing gap is a consistency check, not a statistically meaningful latency benchmark.
-- Request logs expose useful trace details: model, status, timing, token counts, and retrieval count.
-- Models listed `moss/fastlane-1` as Default while Playground used `deepseek/deepseek-v4.1-flash`. Make selection/default behavior explicit.
-- Repeated Playground/index-picker visits emitted empty response POSTs that were aborted and did not appear as completed requests in Logs & Traces. Investigate whether the UI starts inference before explicit submit and make billing/logging outcomes unambiguous.
-- Synthetic search returned near-duplicate Celery passages with identical 1.0000 scores. This is a limitation of the current test fixture; it does not establish a production retrieval defect. A useful comparison needs diverse real documentation, labeled relevant passages, paraphrases, hard negatives, and Recall@K/MRR.
+| Check | Expected outcome | Observed outcome |
+|---|---|---|
+| Search official documentation | Find the labeled source page | Default hybrid search found it in the top ten for all 40 questions. Over 120 timed queries, median latency was 9.2 ms and p95 was 11.7 ms. |
+| Answer from official documentation | Answer the labeled fact accurately | Direct answers scored 31/40, manual retrieval 30/40 and hosted retrieval 32/40. Median request times were 552, 591 and 622 ms respectively. |
+| Authentication and input errors | Distinguish credentials from a bad request | Missing and dummy credentials returned 401. Malformed JSON, an unknown model and an unsupported field returned 400 with distinct codes. |
+| Recover after a client disconnect | Complete a fresh request after closing the first stream | The client closed after one text delta. A separate request returned the expected answer in 690 ms. Server-side stop time and charges were unavailable. |
+| Retry a temporary failure | Retry a 429 when enabled and surface it when retries are disabled | The SDK passed both cases with an injected 429. The separate live concurrency sweep saw 11 actual 429s across 30 attempts with retries disabled. |
 
-## Account-level context
+Hosted retrieval got 49/49 supported synthetic facts right. The official-doc run exposed a harder problem. Both retrieval modes said Celery task rate limits were global by default. The documented scope is per worker instance. Finding the right page still left room for the wrong answer.
 
-At the time reviewed, Analytics showed 683 inference requests, 100% success, $0.34 inference spend, 46 ms first-token metric, and 489 ms p50 / 1,376 ms p95 end-to-end latency for the displayed 30-day range. These aggregates include prior project activity. Usage separately showed 2,106 text queries and 198 retrievals; these are distinct metrics, not results of the single controlled request.
+### Paired model comparison
 
-## Still needed
+I sampled 25 questions from the official-doc set with seed 42, supplied four same-topic answer choices, and repeated each question three times per model. Both models received identical prompts with retrieval, caching and retries disabled. Calls were sequential, model order alternated, and the output limit was 64 tokens. Scores count a completed response containing the correct letter.
 
-This is a smoke review, not the planned 150-call model comparison. Missing/invalid auth, malformed payloads, unsupported parameters, model errors, streaming disconnect behavior, retries, and repeated latency samples remain untested. Do not claim cost per individual inference call from dashboard aggregates.
+| Model | Attempts | Completed and correct | Incomplete | Median / p95 latency of completed responses |
+|---|---:|---:|---:|---:|
+| Fastlane 1 | 75 | 75 | 0 | 161 / 537 ms |
+| DeepSeek V4.1 Flash | 75 | 47 | 28 | 907 / 1,884 ms |
+
+Four incomplete responses still contained the correct letter. A client checking only the text would have accepted them. Latency covers successful completions for each model, and the questions repeat across trials. This measures answer selection under a short output limit. The free-response results above measure a different skill.
+
+[All 150 observations](../reports/evidence/model-comparison.json) · [Comparison script](../datasets/compare_models.py)
+
+## Recommendations
+
+Expose the passages that support a hosted answer, including their source links. Include a billing reference that a developer can reconcile with usage. The measured calls supplied token counts. Their individual dollar charges remain unknown.
+
+## How I’d fix it
+
+I’d attach passage IDs to each response and add the Celery question to a regression set scored on both the quoted passage and the answer. For streaming, I’d expose a final request state so a client can tell what happened after a disconnect.
+
+[Real-document answer scores](../reports/evidence/phase2-real-rag.json) · [Live API contracts](../reports/evidence/inference-contracts.json) · [Concurrency results](../reports/evidence/phase2-inference-concurrency.json) · [Retry tests](../tests/test_retry_resume.py)

@@ -30,6 +30,19 @@ Set `MOSS_PROJECT_ID` and `MOSS_PROJECT_KEY` in `.env`. The SDK uses the project
   --queries datasets/real_docs/queries.jsonl \
   --output-dir results/phase2-real-rag
 
+# Answer a question with passages from the chosen index
+.venv/bin/mossbench ask --index mossbench-synth-100 'What isolation level does PostgreSQL default to?'
+
+# Verify one answer through retrieval, inference and an independent browser task
+.venv/bin/python datasets/check_system_workflow.py
+
+# Compare two models on 25 documentation questions, three repetitions each
+.venv/bin/python datasets/compare_models.py
+
+# Check request errors and recovery, then bounded concurrent browser tasks
+.venv/bin/python datasets/check_inference_contracts.py
+.venv/bin/python datasets/check_task_limits.py
+
 # Four-call unsupported-answer smoke probe (two prompts × LLM-only/manual RAG)
 .venv/bin/mossbench benchmark-abstention \
   --index mossbench-synth-100 \
@@ -83,7 +96,7 @@ done
 .venv/bin/mossbench report results/phase1-inference.jsonl --output results/phase1-inference-summary.json
 ```
 
-`mossbench --help` lists the current command set. `ask` and `benchmark` are placeholders; use the specific `benchmark-*` commands.
+`mossbench --help` lists the current command set. Use `ask` with an indexed documentation corpus. Run a named `benchmark-*` command for measurements.
 
 ## Reproduce the real-document benchmark
 
@@ -119,10 +132,9 @@ Chunking is fixed at 1,200 characters with a 200-character overlap. Moss's nativ
 ## Results and evidence
 
 - [`reports/benchmark-report.md`](reports/benchmark-report.md) — retrieval and RAG measurements, answer review, task evidence, findings, and limitations.
-- [`reports/one-pager.md`](reports/one-pager.md) — concise hiring review draft.
-- [`reports/evidence/`](reports/evidence/) — sanitized aggregate metrics generated from local results by `reports/export_evidence.py`.
-- [`findings/foundation_portal_api_findings.md`](findings/foundation_portal_api_findings.md) and [`findings/reproduction_submission_findings.md`](findings/reproduction_submission_findings.md) — foundation observations and ranked findings.
-- [`findings/portal_findings.md`](findings/portal_findings.md), [`findings/inference_api_findings.md`](findings/inference_api_findings.md), and [`findings/tasks_api_findings.md`](findings/tasks_api_findings.md) — product-area review notes.
+- [`reports/one-pager.md`](reports/one-pager.md) — one-page product review. See also the [one-line summary](one-liner.md).
+- [`reports/evidence/`](reports/evidence/) — sanitized results from the benchmark exporter and individual check scripts.
+- [`findings/portal_findings.md`](findings/portal_findings.md), [`findings/inference_api_findings.md`](findings/inference_api_findings.md), [`findings/tasks_api_findings.md`](findings/tasks_api_findings.md), and [system findings](findings/system_findings.md) — one review per phase.
 - Raw benchmark JSONL and complete task records live under `results/` locally; they are ignored by Git because raw answers and task records can contain account-specific IDs and text. After reproducing a run, regenerate the shareable summaries with `.venv/bin/python reports/export_evidence.py`.
 
 The benchmark report is based on saved measurements. It does not estimate inference dollar cost from token counts. Review the report's sample sizes and unexecuted coverage before generalizing results.

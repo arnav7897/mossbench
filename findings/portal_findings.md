@@ -1,29 +1,24 @@
-# Moss Portal review
+# Phase 1 · Portal and first request
 
-This note covers onboarding, project configuration, models, indexes, Playground, Tasks, analytics, logs, usage, billing, account settings, and the reported password-reset behavior. Tests were performed in the authenticated Developer portal. Account-wide totals below include earlier activity and are not attributed to this review alone.
+## What I tested
 
-## What worked well
+I signed in, connected an existing index, tried the model filters, and sent a Playground prompt. I followed the response into Logs & Traces, checked index events and usage, and ran a browser task with limits. I also tried the command palette and index picker with a keyboard.
 
-- Navigation separates building (Configure, Playground, Models, Indexes, Tasks), observing (Analytics, Logs & Traces), and management (keys, billing, settings). This is a sensible map for a developer product.
-- Configure provides Python, TypeScript, and cURL examples. Context settings expose retrieval enablement and index selection. Model discovery and Playground make it possible to try inference without first writing an integration.
-- The task form exposes a goal, URL, runtime limit, and spend limit. Task history and details make status, steps, output, and spend inspectable.
-- Analytics and Logs & Traces show useful operational measures. Index-event history gives a readable account of document additions and removals. Billing clearly shows the Developer plan, limits, balance, and auto-reload status.
-- The interface has a consistent visual style, familiar labels, and clear sections.
+## What went well
 
-## Friction and recommendations
+I could reach Models by typing in the command palette and pressing Enter. Configure put the Python, TypeScript and cURL examples beside the project settings. I could match a Playground answer to its log entry by model, token counts and retrieval count.
 
-- Playground selected `deepseek/deepseek-v4.1-flash` while Models labeled `moss/fastlane-1` as the default. Make active Playground model and project default explicit and consistent, or explain the difference.
-- Retrieval defaults to all project indexes. Make active index scope conspicuous beside the prompt and in result/log detail so users can tell what data influenced a response.
-- Changing Playground/index-picker state produced empty `/v1/responses` POSTs that were aborted and absent from the request log. Reproduce and ensure selection changes do not start billable inference unless the user submits.
-- The index picker stayed open after selection and did not dismiss with Escape in the observed run. Support Escape/outside-click dismissal and visible focus handling.
-- The project already had three indexes, so sample, upload, and crawl entry points led to plan comparison. Explain the limit at the entry point and offer a clear route to inspect/manage existing indexes.
-- The account showed one team member and that inviting requires an upgrade; state plan restrictions before users reach the invite flow.
-- The visual review found a coherent interface, but this was not a full accessibility audit. Keyboard interaction should be checked systematically; failure to close the picker with Escape is one concrete keyboard usability issue. Screen-reader semantics, contrast, zoom, and focus order still need dedicated checks.
+## Recommendations
 
-## Security report from account owner
+| What I expected | What I observed | Why I’d change it |
+|---|---|---|
+| Start with the model marked Default | Models showed Fastlane 1. Playground sent my request to DeepSeek Flash. | Developers need to know which model they are evaluating. |
+| Close the index picker and return to the prompt | Outside clicks were intercepted and Escape from the composer left it open. Reload restored access. | This interrupted both pointer and keyboard use. |
+| Know why index creation failed | At three occupied slots, upload, sample and crawl took me to plan comparison. Existing search still worked. | Show the occupied slots and a link to manage them at the point of creation. |
+| Understand the latency of one request | Playground showed 950 ms total and Logs showed 877 ms. Two empty requests also appeared on repeated Playground visits, with no matching log rows. | Label the timing boundaries and explain when an inference request starts. Billing for the empty requests was unobservable. |
 
-The account owner reports that a password-reset link remains usable to change the password again after it has already been used once, during its one-hour validity period. Treat this as reported, not independently reproduced. Recommended behavior is to invalidate the token atomically on first successful password change, reject subsequent use, and invalidate other outstanding reset tokens for that account. Reproduce only with a controlled test account and verify the second attempt is rejected without changing the new password.
+## How I’d fix it
 
-## Evidence and limits
+I’d give the prompt an explicit model and index scope, use the project default on first visit, and return focus to the picker trigger on Escape. Keyboard search worked well enough to use as the pattern. Screen-reader behavior and contrast still need direct measurement. The account owner separately reported being able to reset their password twice with the same link. I’d prioritize internal verification and consume the reset token on the first successful change.
 
-The authenticated review covered Configure tabs and a discarded index selection, model filters, index-cap entry points, task form/history/detail, analytics tabs, request and index-event logs, usage, billing, invoices, profile, and project/team settings. No billing or account settings were changed, keys created/revoked, users invited, projects deleted, or indexes mutated. See `reports/one-pager.md` and sanitized evidence under `reports/evidence/`.
+[Portal observations and timings](../reports/evidence/phase1-portal-smoke.json)

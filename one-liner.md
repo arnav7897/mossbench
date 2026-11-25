@@ -1,0 +1,1 @@
+I built a [Moss documentation assistant](https://github.com/arnav7897/mossbench) that found the right page for 40/40 questions, answered 32/40 correctly with hosted retrieval, and independently verified a PostgreSQL answer in the browser. [Full review](reports/one-pager.md)
