@@ -12,7 +12,6 @@ This note covers onboarding, project configuration, models, indexes, Playground,
 
 ## Friction and recommendations
 
-- Playground selected `deepseek/deepseek-v4.1-flash` while Models labeled `moss/fastlane-1` as the default. Make active Playground model and project default explicit and consistent, or explain the difference.
 - Retrieval defaults to all project indexes. Make active index scope conspicuous beside the prompt and in result/log detail so users can tell what data influenced a response.
 - Changing Playground/index-picker state produced empty `/v1/responses` POSTs that were aborted and absent from the request log. Reproduce and ensure selection changes do not start billable inference unless the user submits.
 - The index picker stayed open after selection and did not dismiss with Escape in the observed run. Support Escape/outside-click dismissal and visible focus handling.
