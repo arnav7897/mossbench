@@ -83,6 +83,10 @@ A supported FastAPI body-validation control ranked its labeled page first. Three
 
 Two temporary, explicitly fictional fixture passages claimed different Celery retry limits (5 and 9). Both appeared in the retrieved context, and the model stated that the documents conflicted and cited both values. Cleanup of both fixture IDs was verified. This is one controlled run and does not estimate general contradiction handling. Reproduce with `.venv/bin/python datasets/check_contradictions.py`; sanitized evidence is in [`reports/evidence/phase2-contradictions.json`](evidence/phase2-contradictions.json), while raw response text stays in ignored `results/phase2-contradictions/`.
 
+## Streaming smoke check
+
+One retrieval-free response emitted the expected lifecycle through `response.completed`; concatenated text deltas matched `get_final_response().output_text`. The first text delta arrived at 539.457 ms and the full response completed at 542.133 ms. This is a single observation, not a latency estimate. Early disconnect, stream errors, and stream-vs-nonstream equivalence remain untested. Reproduce with `.venv/bin/python datasets/check_streaming.py`; sanitized events and timings are in [`reports/evidence/phase2-streaming.json`](evidence/phase2-streaming.json), while the text is retained locally under ignored `results/phase2-streaming/`.
+
 ## Tasks API evidence
 
 The existing Phase 3 evidence covered five bounded public-doc tasks, cancellation, resuming the same task ID through a fresh client, artifact availability/checksum, runtime and model-cost limits, duplicate submission using one idempotency key, and a cancel/poll race. All five initial smoke tasks reached terminal `completed`; the unreachable URL produced an honest failure rather than fabricated facts. These observations are single runs, not a reliability estimate. Model usage cost is recorded separately from total browser/task billing.

@@ -1,0 +1,25 @@
+{
+  "completed_event_seen": true,
+  "end_to_end_ms": 542.133,
+  "event_types": [
+    "response.created",
+    "response.in_progress",
+    "response.output_item.added",
+    "response.content_part.added",
+    "response.output_text.delta",
+    "response.output_text.delta",
+    "response.output_text.done",
+    "response.content_part.done",
+    "response.output_item.done",
+    "response.completed"
+  ],
+  "first_text_delta_ms": 539.457,
+  "model": "moss/fastlane-1",
+  "note": "One retrieval-free stream. This checks event order and text assembly only; early disconnect, stream error handling, and comparison with a non-stream response were not tested.",
+  "status": "completed",
+  "stream_matches_final": true,
+  "usage": {
+    "input_tokens": 129,
+    "output_tokens": 3
+  }
+}

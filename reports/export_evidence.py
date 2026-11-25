@@ -204,6 +204,16 @@ def export_contradictions():
     (OUT / "phase2-contradictions.json").write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
 
 
+def export_streaming():
+    raw = json.loads((ROOT / "results/phase2-streaming/streaming.json").read_text())
+    result = {key: raw[key] for key in (
+        "model", "event_types", "first_text_delta_ms", "end_to_end_ms",
+        "stream_matches_final", "completed_event_seen", "usage", "status",
+    )}
+    result["note"] = "One retrieval-free stream. This checks event order and text assembly only; early disconnect, stream error handling, and comparison with a non-stream response were not tested."
+    (OUT / "phase2-streaming.json").write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     export_retrieval()
@@ -213,6 +223,7 @@ def main():
     export_bm25_scale()
     export_hard_negatives()
     export_contradictions()
+    export_streaming()
     for path in sorted(OUT.glob("*.json")):
         print(path)
 
