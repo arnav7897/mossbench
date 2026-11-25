@@ -128,7 +128,7 @@ The benchmark report is based on saved measurements. It does not estimate infere
 
 ## Current limits
 
-- Portal UI/Playwright coverage remains intentionally skipped.
+- Authenticated Portal/Playwright smoke findings are in [`findings/phase1.md`](findings/phase1.md); this is not a full usability or accessibility audit.
 - No web UI is implemented; the CLI is the minimum product surface.
 - The local baseline is standard-library BM25; FAISS/Chroma was not installed or evaluated.
 - The real-doc set has 40 answerable questions (32 evaluation, 8 held out), and the held-out sample is small. A separate two-question unsupported-answer smoke probe is documented in the benchmark report; it is too small to estimate general abstention behavior.

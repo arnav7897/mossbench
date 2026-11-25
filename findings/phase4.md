@@ -71,7 +71,7 @@ These findings separate confirmed local integration bugs from measured answer-qu
 ## Other evidence and untested coverage
 
 - Tasks smoke/recovery cases completed with honest unreachable-URL failure, schema checks, cancellation, same-ID resume, artifact checksum, model-cost limit, duplicate idempotency key, and a cancel/poll race. The runs are small single observations; see the linked Phase 3 review files in [`reports/benchmark-report.md`](../reports/benchmark-report.md).
-- Portal UI checks remain intentionally skipped. No Portal finding is claimed.
+- Authenticated Portal UI smoke observations and ranked findings are recorded in [`findings/phase1.md`](../findings/phase1.md), with sanitized metrics in [`reports/evidence/phase1-portal-smoke.json`](../reports/evidence/phase1-portal-smoke.json). This is not a complete usability or accessibility audit.
 - A two-question unsupported-answer probe produced four abstaining answers across LLM-only and manual RAG; this is a smoke observation, not a general abstention rate.
 - Local BM25 ran against 100, 1,000, and 10,000 synthetic documents using the same 50 queries; recall stayed constant and p50 rose from 0.330 ms to 38.810 ms. All added documents were unrelated decoys, so this does not measure contradictory-document behavior or Moss cloud scaling.
 - A supported retrieval control ranked its page first; three unsupported technical questions nevertheless returned plausible topic pages, including an unrelated Celery page for an exact Redis-timeout question. This is a retrieval false-positive smoke observation; scores are not calibrated and no answer-generation failure is inferred.

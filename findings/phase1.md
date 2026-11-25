@@ -1,6 +1,18 @@
 # Phase 1 findings
 
-Portal UI checks were intentionally skipped. This file records only observations from the API smoke calls and local integration work; it does not claim broad product coverage.
+This file records Phase 1 API and authenticated Portal smoke observations. Coverage is limited to the routes and one Playground request listed below; it is not a full usability or accessibility audit.
+
+## Authenticated Portal / Playwright smoke (2026-11-25)
+
+The user signed in manually in an isolated Chrome profile controlled by Playwright. Home, Configure, Models, Indexes, Tasks, Analytics, Logs & Traces, API keys, Usage, Project Settings, and Billing loaded. The API key stayed masked. The command palette opened, filtered to Models, and Enter navigated to that page. No indexes, keys, project settings, or billing settings were changed.
+
+- **P2 — Playground model differs from the marked default.** The Models page marks `moss/fastlane-1` as the default, but a fresh Playground view selected `DeepSeek V4.1 Flash`; the successful Playground request used `deepseek/deepseek-v4.1-flash`. A user following the Configure quickstart can therefore test a different model than the one marked default. Evidence: [`reports/evidence/phase1-portal-smoke.json`](../reports/evidence/phase1-portal-smoke.json).
+- **P2 — Index picker can block the Playground.** After changing the multi-index selection, its popover stayed open. Escape sent from the composer and attempts to click the page or sidebar did not dismiss it; Playwright reported that the overlay intercepted pointer events. Reloading the route restored the page. With the popover closed, the composer accepted and sent a prompt normally.
+- **P3 — Empty inference requests during Playground setup.** On multiple Playground visits and index-picker changes, the browser sent two zero-byte `POST /v1/responses` requests; each received HTTP 202 and then failed in the browser with `net::ERR_ABORTED`. They did not appear as request rows; the Logs count increased by one only after the actual successful prompt. Billing for these empty requests could not be determined.
+- **P3 — Playground and Logs show different latency for the same request.** Playground showed 941 ms first token / 950 ms total; Logs showed 864 ms / 877 ms for the matching 720-input/32-output-token request. The roughly 73–77 ms difference may reflect client versus service timing, but the UI does not label the distinction.
+- **Unconfirmed cloud observation:** the first authenticated load emitted one API HTTP 400. It did not recur on later Configure reloads, and its request path was not captured, so it is not classified as a confirmed product bug.
+
+The Playground smoke returned the exact requested short response, reported 8 ms retrieval, and appeared in Logs as one successful request with one retrieval. These are single-run observations. Screenshots, browser state, account IDs, request IDs, prompts, and billing details were not added to Git.
 
 ## What worked well
 
@@ -27,7 +39,7 @@ Portal UI checks were intentionally skipped. This file records only observations
 
 - One smoke request per API surface is not a reliability or performance study.
 - The task model cost limit is not a guarantee that total task billing is capped at that amount.
-- Portal workflows and live API error-contract cases remain untested.
+- Portal workflows beyond the authenticated smoke above and live API error-contract cases remain untested.
 
 ## Phase 2: first retrieval benchmark
 

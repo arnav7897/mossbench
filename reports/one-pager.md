@@ -2,7 +2,7 @@
 
 *Draft for the candidate to edit into their own voice before submission.*
 
-**Repository:** [github.com/arnav7897/mossbench](https://github.com/arnav7897/mossbench) is public but empty; benchmark commits are local and not pushed.
+**Repository:** [github.com/arnav7897/mossbench](https://github.com/arnav7897/mossbench) contains the benchmark code, sanitized evidence, and findings.
 
 I evaluated Moss retrieval, hosted inference, and browser Tasks through a small Python CLI and saved the raw measurements so the results can be reproduced. I used official FastAPI, Celery, Redis, and PostgreSQL documentation, alongside the synthetic corpus used for controlled checks.
 
@@ -14,4 +14,4 @@ I evaluated Moss retrieval, hosted inference, and browser Tasks through a small 
 
 **What I would improve.** I would expose retrieved passage IDs and source text in hosted RAG responses, add per-response cost reconciliation, and return stage-specific diagnostics when a web-source crawl fails. A bounded FastAPI crawl failed with `CRAWL_FAILED`, while direct fetching of the same public page succeeded. I also fixed a local SDK integration error where async index methods were not awaited.
 
-**Coverage.** Portal UI/Playwright testing was intentionally skipped. A two-question unsupported-answer probe produced abstentions in both LLM-only and manual RAG, but is too small to estimate general behavior. I also ran basic streaming, function-tool, structured-output, cache-usage, SDK/raw HTTP, and 1/2/5 concurrency smoke checks; the concurrency run returned 429s at higher levels. These are small observations, not broad suites. Memory/RSS, multi-index isolation, early stream disconnect, and tool failure paths remain untested. The detailed metrics, raw outputs, and limitations are in [`benchmark-report.md`](benchmark-report.md).
+**Coverage.** Authenticated Portal/Playwright smoke covered the main navigation, usage views, and one Playground request; it found a Playground/model-default mismatch and a sticky index-picker overlay. This was not a full usability or accessibility audit. A two-question unsupported-answer probe produced abstentions in both LLM-only and manual RAG, but is too small to estimate general behavior. I also ran basic streaming, function-tool, structured-output, cache-usage, SDK/raw HTTP, and 1/2/5 concurrency smoke checks; the concurrency run returned 429s at higher levels. These are small observations, not broad suites. Memory/RSS, multi-index isolation, early stream disconnect, and tool failure paths remain untested. The detailed metrics, raw outputs, and limitations are in [`benchmark-report.md`](benchmark-report.md).

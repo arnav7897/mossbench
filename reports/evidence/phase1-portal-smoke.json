@@ -1,0 +1,84 @@
+{
+  "run_date": "2026-11-25",
+  "tooling": {
+    "browser": "Google Chrome 147.0.7727.116",
+    "automation": "Playwright 1.65.1",
+    "profile": "isolated local profile; user authenticated manually"
+  },
+  "routes_loaded": [
+    "Home",
+    "Configure",
+    "Playground",
+    "Models",
+    "Indexes",
+    "Tasks",
+    "Analytics",
+    "Logs & Traces",
+    "API keys",
+    "Usage",
+    "Project Settings",
+    "Billing"
+  ],
+  "keyboard_search": {
+    "result": "Search opened, filtered to Models, and Enter navigated to Models"
+  },
+  "playground": {
+    "status": "completed",
+    "http_status": 200,
+    "content_type": "text/event-stream",
+    "requested_short_marker_returned": true,
+    "selected_ui_model": "DeepSeek V4.1 Flash",
+    "request_model": "deepseek/deepseek-v4.1-flash",
+    "models_page_marked_default": "moss/fastlane-1",
+    "retrieval_ms": 8,
+    "input_tokens": 720,
+    "output_tokens": 32,
+    "playground_latency_ms": {
+      "first_token": 941,
+      "total": 950
+    },
+    "logs_latency_ms_for_same_request": {
+      "first_token": 864,
+      "total": 877
+    },
+    "logs_status": "OK",
+    "logs_retrieval_count": 1,
+    "logs_request_count_before_and_after": [
+      678,
+      679
+    ]
+  },
+  "index_picker": {
+    "popover_remained_open_after_selection": true,
+    "outside_pointer_click_blocked": true,
+    "escape_from_composer_dismissed": false,
+    "route_reload_closed_popover": true,
+    "composer_worked_after_popover_closed": true,
+    "selection_saved_to_project": false
+  },
+  "empty_playground_requests": {
+    "reproduced": true,
+    "observed_on_multiple_playground_visits": true,
+    "requests_per_visit": 2,
+    "method": "POST",
+    "path": "/v1/responses",
+    "request_body_bytes": 0,
+    "response_status": 202,
+    "browser_failure_after_response": "net::ERR_ABORTED",
+    "matching_log_rows_observed": 0,
+    "billing_effect": "unknown"
+  },
+  "unconfirmed_http_400": {
+    "observed_once_on_initial_authenticated_load": true,
+    "host": "api.usemoss.dev",
+    "request_path_captured": false,
+    "reproduced_on_later_configure_loads": false
+  },
+  "data_safety": {
+    "indexes_or_documents_changed": false,
+    "api_keys_created_or_changed": false,
+    "billing_settings_changed": false,
+    "account_ids_request_ids_browser_state_and_screenshots_included": false
+  },
+  "limitations": "Single account and browser session; the one Playground response is a smoke check, not a quality or latency estimate. Billing for empty 202 requests was not observable."
+}

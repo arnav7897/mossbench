@@ -141,10 +141,10 @@ The exact commands, source manifest, and dataset integrity checks are in [`READM
 
 ## Not measured / known limits
 
-- Portal UI / Playwright was explicitly skipped.
+- Authenticated Portal UI / Playwright smoke findings are in [`findings/phase1.md`](../findings/phase1.md); the smoke did not cover every workflow, screen-reader behavior, or full keyboard navigation.
 - No FAISS or Chroma comparison or Moss cloud scale sweep. RSS was observed once in a single Linux process and is not an isolated index-memory measurement. Concurrency was sampled only in one short 10-call-per-level run; no sustained load or post-cooldown repeat was run. The local BM25 scale sweep is synthetic and includes only unrelated decoys.
 - The contradictory-document result is a single controlled smoke check. The four-query unsupported retrieval probe and two-question abstention probe are also too small to estimate general behavior.
 - No multi-index isolation test because the only new-project test index slot was unavailable; unrelated user indexes were not queried.
 - Streaming, tool calling, structured output, cache usage, and SDK/raw HTTP each received one small smoke comparison. A matched one-pair stream/non-stream check confirmed identical text; stream disconnect/errors, tool error cases, complex schemas, cache-hit attribution, and broader transport equivalence remain untested. Long-context and inference error-contract suites were not run.
-- Six offline unit tests cover metric percentiles/grouping and Tasks runtime/cost validation. Live and offline measurements are saved separately; no mocked result is included in the live benchmark evidence.
-- The account dashboard and Portal workflows were not inspected in this phase. No current balance or total billing claim is made.
+- Twelve offline unit tests cover metric percentiles/grouping, Tasks runtime/cost validation, retry/resume behavior, and ledger upserts. Live and offline measurements are saved separately; no mocked result is included in the live benchmark evidence.
+- The account dashboard was inspected during the Portal smoke, but account-specific balance and billing amounts are omitted from this report.
