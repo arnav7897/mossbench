@@ -47,6 +47,9 @@ Set `MOSS_PROJECT_ID` and `MOSS_PROJECT_KEY` in `.env`. The SDK uses the project
 # 10 short inference calls at concurrency 1, 2, and 5; no cache or SDK retries
 .venv/bin/python datasets/check_inference_concurrency.py
 
+# One deterministic local function-tool call plus follow-up response
+.venv/bin/python datasets/check_function_tool.py
+
 # Offline local BM25 scale sweep (no Moss API calls)
 for size in 100 1000 10000; do
   .venv/bin/mossbench benchmark-keyword \

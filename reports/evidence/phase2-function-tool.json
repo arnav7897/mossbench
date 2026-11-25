@@ -1,0 +1,19 @@
+{
+  "end_to_end_ms": 1083.01,
+  "final_mentions_shipped": true,
+  "first_usage": {
+    "input_tokens": 411,
+    "output_tokens": 33
+  },
+  "function_call_count": 1,
+  "local_tool_executed": true,
+  "model": "moss/fastlane-1",
+  "note": "One deterministic local-fixture function call and one follow-up response. Tool argument errors, unknown IDs, and tool failure handling were not tested.",
+  "second_usage": {
+    "input_tokens": 212,
+    "output_tokens": 25
+  },
+  "status": "success",
+  "tool_name": "order_lookup",
+  "tool_returned_fixture_record": true
+}

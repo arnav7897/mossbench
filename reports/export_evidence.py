@@ -242,6 +242,18 @@ def export_concurrency():
     (OUT / "phase2-inference-concurrency.json").write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
 
 
+def export_function_tool():
+    raw = json.loads((ROOT / "results/phase2-function-tool/function-tool.json").read_text())
+    result = {
+        key: raw.get(key) for key in (
+            "model", "status", "tool_name", "function_call_count", "local_tool_executed",
+            "tool_returned_fixture_record", "final_mentions_shipped", "first_usage", "second_usage", "end_to_end_ms",
+        )
+    }
+    result["note"] = "One deterministic local-fixture function call and one follow-up response. Tool argument errors, unknown IDs, and tool failure handling were not tested."
+    (OUT / "phase2-function-tool.json").write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     export_retrieval()
@@ -253,6 +265,7 @@ def main():
     export_contradictions()
     export_streaming()
     export_concurrency()
+    export_function_tool()
     for path in sorted(OUT.glob("*.json")):
         print(path)
 

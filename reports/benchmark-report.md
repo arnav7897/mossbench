@@ -91,6 +91,10 @@ One retrieval-free response emitted the expected lifecycle through `response.com
 
 Ten retrieval-free, uncached calls were issued at each concurrency level (1, 2, 5), with SDK retries disabled and 8 output tokens allowed per call. Level 1 completed 10/10 (p50 251.621 ms; successful throughput 2.897/s), level 2 completed 8/10 (p50 257.981 ms; 6.354/s), and level 5 completed 1/10 (p50 265.206 ms; 1.331/s). The 11 failures were all HTTP 429 `rate_limit_exceeded`. Levels ran back-to-back in one sweep; these observations do not establish a stable quota or predict behavior after a cooldown. Reproduce with `.venv/bin/python datasets/check_inference_concurrency.py`; full per-call records are local under ignored `results/phase2-inference-concurrency/`, and sanitized summaries are in [`reports/evidence/phase2-inference-concurrency.json`](evidence/phase2-inference-concurrency.json).
 
+## Function-tool smoke check
+
+One forced `order_lookup` function call used a deterministic local fixture (`MOSS-001` → shipped, ETA `2026-11-27`). The client executed the returned call and sent its result back; the follow-up response mentioned the returned shipped status. This verifies the basic function-call round trip only. Invalid arguments, unknown orders, tool errors, and parallel calls remain untested. Reproduce with `.venv/bin/python datasets/check_function_tool.py`; sanitized outcome and token counts are in [`reports/evidence/phase2-function-tool.json`](evidence/phase2-function-tool.json). The raw answer remains under ignored `results/phase2-function-tool/`.
+
 ## Tasks API evidence
 
 The existing Phase 3 evidence covered five bounded public-doc tasks, cancellation, resuming the same task ID through a fresh client, artifact availability/checksum, runtime and model-cost limits, duplicate submission using one idempotency key, and a cancel/poll race. All five initial smoke tasks reached terminal `completed`; the unreachable URL produced an honest failure rather than fabricated facts. These observations are single runs, not a reliability estimate. Model usage cost is recorded separately from total browser/task billing.
