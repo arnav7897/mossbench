@@ -1,0 +1,13 @@
+{
+  "completed_event_seen": true,
+  "end_to_end_ms": 907.285,
+  "http_status": 200,
+  "index": "mossbench-synth-100",
+  "input_tokens": 1060,
+  "model": "moss/fastlane-1",
+  "note": "One request. The service returned X-Moss-Retrieve-Ms; this single response does not establish header stability or timing accuracy.",
+  "output_tokens": 29,
+  "response_status": "completed",
+  "retrieve_ms_header": "14.4",
+  "retrieve_ms_header_present": true
+}

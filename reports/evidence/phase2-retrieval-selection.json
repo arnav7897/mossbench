@@ -1,0 +1,39 @@
+{
+  "cases": [
+    {
+      "case": "retrieval_off",
+      "error_code": null,
+      "error_type": null,
+      "http_status": null,
+      "input_tokens": 136,
+      "latency_ms": 806.983,
+      "nonempty_output": true,
+      "output_tokens": 31,
+      "status": "completed"
+    },
+    {
+      "case": "explicit_existing_index",
+      "error_code": null,
+      "error_type": null,
+      "http_status": null,
+      "input_tokens": 1069,
+      "latency_ms": 602.297,
+      "nonempty_output": true,
+      "output_tokens": 33,
+      "status": "completed"
+    },
+    {
+      "case": "explicit_missing_index",
+      "error_code": "permission_error",
+      "error_type": "InferenceError",
+      "http_status": 403,
+      "input_tokens": null,
+      "latency_ms": 1717.208,
+      "nonempty_output": null,
+      "output_tokens": null,
+      "status": "error"
+    }
+  ],
+  "model": "moss/fastlane-1",
+  "note": "The nonexistent index selection returned 403 permission_error; this does not distinguish absence from access control. No index was created or modified."
+}

@@ -296,6 +296,29 @@ def export_retrieval_rss():
     (OUT / "phase2-retrieval-rss.json").write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
 
 
+def export_retrieval_selection():
+    raw = json.loads((ROOT / "results/phase2-retrieval-selection/selection.json").read_text())
+    result = {
+        "model": raw["model"],
+        "cases": [{key: case.get(key) for key in (
+            "case", "status", "latency_ms", "nonempty_output", "input_tokens", "output_tokens",
+            "error_type", "error_code", "http_status",
+        )} for case in raw["cases"]],
+        "note": "The nonexistent index selection returned 403 permission_error; this does not distinguish absence from access control. No index was created or modified.",
+    }
+    (OUT / "phase2-retrieval-selection.json").write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
+
+
+def export_retrieval_timing_header():
+    raw = json.loads((ROOT / "results/phase2-retrieval-timing-header/header.json").read_text())
+    result = {key: raw.get(key) for key in (
+        "model", "index", "http_status", "retrieve_ms_header_present", "retrieve_ms_header",
+        "completed_event_seen", "response_status", "input_tokens", "output_tokens", "end_to_end_ms",
+    )}
+    result["note"] = "One request. The service returned X-Moss-Retrieve-Ms; this single response does not establish header stability or timing accuracy."
+    (OUT / "phase2-retrieval-timing-header.json").write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     export_retrieval()
@@ -312,6 +335,8 @@ def main():
     export_structured_output()
     export_cache_usage()
     export_retrieval_rss()
+    export_retrieval_selection()
+    export_retrieval_timing_header()
     for path in sorted(OUT.glob("*.json")):
         print(path)
 

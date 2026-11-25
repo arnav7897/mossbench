@@ -2,7 +2,7 @@
 
 *Draft for the candidate to edit into their own voice before submission.*
 
-**Repository:** Local Git history is ready; public GitHub publication is pending authorization.
+**Repository:** [github.com/arnav7897/mossbench](https://github.com/arnav7897/mossbench) is public but empty; benchmark commits are local and not pushed.
 
 I evaluated Moss retrieval, hosted inference, and browser Tasks through a small Python CLI and saved the raw measurements so the results can be reproduced. I used official FastAPI, Celery, Redis, and PostgreSQL documentation, alongside the synthetic corpus used for controlled checks.
 

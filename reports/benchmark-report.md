@@ -111,6 +111,14 @@ Three sequential retrieval-free requests compared two identical prompts with a u
 
 On Linux, the process RSS was 34,748 KiB before client construction, 192,328 KiB after loading the 618-chunk index, 193,228 KiB after one query, and 68,760 KiB after closing the client. Index load took 6,484.662 ms and the query 11.551 ms. These are single-process observations: RSS includes SDK/runtime state and allocator behavior, and the residual after close means this is not isolated index memory. Reproduce with `.venv/bin/python datasets/check_retrieval_rss.py`; sanitized values are in [`reports/evidence/phase2-retrieval-rss.json`](evidence/phase2-retrieval-rss.json).
 
+## Retrieval selection and missing-index check
+
+Three explicit cases were tested with the same question: retrieval off and retrieval against `mossbench-synth-100` both completed with nonempty answers; selecting `mossbench-does-not-exist-probe` returned HTTP 403 `permission_error`. The 403 does not distinguish a missing index from access control. The project was already at its three-index limit, so no empty index was created and other indexes were not changed. Reproduce with `.venv/bin/python datasets/check_retrieval_selection.py`; sanitized outcomes are in [`reports/evidence/phase2-retrieval-selection.json`](evidence/phase2-retrieval-selection.json).
+
+## Hosted retrieval timing header
+
+A raw streamed request with retrieval on the explicit benchmark index returned `X-Moss-Retrieve-Ms: 14.4`, HTTP 200, and `response.completed`; end-to-end time was 907.285 ms. This confirms the header was present in this response only; it does not establish stability or accuracy. Reproduce with `.venv/bin/python datasets/check_retrieval_timing_header.py`; sanitized evidence is in [`reports/evidence/phase2-retrieval-timing-header.json`](evidence/phase2-retrieval-timing-header.json).
+
 ## Tasks API evidence
 
 The existing Phase 3 evidence covered five bounded public-doc tasks, cancellation, resuming the same task ID through a fresh client, artifact availability/checksum, runtime and model-cost limits, duplicate submission using one idempotency key, and a cancel/poll race. All five initial smoke tasks reached terminal `completed`; the unreachable URL produced an honest failure rather than fabricated facts. These observations are single runs, not a reliability estimate. Model usage cost is recorded separately from total browser/task billing.
