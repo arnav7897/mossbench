@@ -210,7 +210,7 @@ def export_streaming():
         "model", "event_types", "first_text_delta_ms", "end_to_end_ms",
         "stream_matches_final", "completed_event_seen", "usage", "status",
     )}
-    result["note"] = "One retrieval-free stream. This checks event order and text assembly only; early disconnect, stream error handling, and comparison with a non-stream response were not tested."
+    result["note"] = "One retrieval-free stream. This checks event order and text assembly only; early disconnect and stream error handling were not tested. A separate single-pair stream/non-stream comparison is in phase2-stream-equivalence.json."
     (OUT / "phase2-streaming.json").write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
 
 
@@ -319,6 +319,18 @@ def export_retrieval_timing_header():
     (OUT / "phase2-retrieval-timing-header.json").write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
 
 
+def export_stream_equivalence():
+    raw = json.loads((ROOT / "results/phase2-stream-equivalence/equivalence.json").read_text())
+    result = {
+        "model": raw["model"], "cache": raw["cache"], "retrieve": raw["retrieve"],
+        "texts_match": raw["texts_match"],
+        "nonstream": {key: raw["nonstream"].get(key) for key in ("status", "latency_ms", "input_tokens", "output_tokens")},
+        "stream": {key: raw["stream"].get(key) for key in ("status", "matches_stream_final", "latency_ms", "events", "input_tokens", "output_tokens")},
+        "note": "One matched pair of uncached retrieval-free requests; latency is not a stable comparison.",
+    }
+    (OUT / "phase2-stream-equivalence.json").write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     export_retrieval()
@@ -337,6 +349,7 @@ def main():
     export_retrieval_rss()
     export_retrieval_selection()
     export_retrieval_timing_header()
+    export_stream_equivalence()
     for path in sorted(OUT.glob("*.json")):
         print(path)
 

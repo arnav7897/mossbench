@@ -1,0 +1,32 @@
+{
+  "cache": false,
+  "model": "moss/fastlane-1",
+  "nonstream": {
+    "input_tokens": 129,
+    "latency_ms": 445.684,
+    "output_tokens": 4,
+    "status": "completed"
+  },
+  "note": "One matched pair of uncached retrieval-free requests; latency is not a stable comparison.",
+  "retrieve": false,
+  "stream": {
+    "events": [
+      "response.created",
+      "response.in_progress",
+      "response.output_item.added",
+      "response.content_part.added",
+      "response.output_text.delta",
+      "response.output_text.delta",
+      "response.output_text.done",
+      "response.content_part.done",
+      "response.output_item.done",
+      "response.completed"
+    ],
+    "input_tokens": 129,
+    "latency_ms": 141.007,
+    "matches_stream_final": true,
+    "output_tokens": 4,
+    "status": "completed"
+  },
+  "texts_match": true
+}

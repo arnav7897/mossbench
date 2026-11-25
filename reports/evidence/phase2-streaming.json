@@ -15,7 +15,7 @@
   ],
   "first_text_delta_ms": 539.457,
   "model": "moss/fastlane-1",
-  "note": "One retrieval-free stream. This checks event order and text assembly only; early disconnect, stream error handling, and comparison with a non-stream response were not tested.",
+  "note": "One retrieval-free stream. This checks event order and text assembly only; early disconnect and stream error handling were not tested. A separate single-pair stream/non-stream comparison is in phase2-stream-equivalence.json.",
   "status": "completed",
   "stream_matches_final": true,
   "usage": {
